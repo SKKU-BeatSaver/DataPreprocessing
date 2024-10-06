@@ -1,0 +1,4 @@
+Sampling Rate: 125 Hz
+Number of R-peaks detected: 51
+RMSSD: 0.0110 seconds
+Mean Heart Rate: 81.80 bpm
