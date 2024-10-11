@@ -1,0 +1,11 @@
+#Age: 73
+#Sex: female
+#Dx: 266249003
+Record name: S0449
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0449 (Channel 0):
+RMSSD = 0.0500 s
+Mean HR = 68.91 bpm
+Number of R-peaks = 137

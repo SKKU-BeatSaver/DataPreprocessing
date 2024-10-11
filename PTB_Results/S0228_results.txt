@@ -1,0 +1,11 @@
+#Age: 75
+#Sex: male
+#Dx: 164865005
+Record name: S0228
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0228 (Channel 0):
+RMSSD = 0.0021 s
+Mean HR = 80.38 bpm
+Number of R-peaks = 154

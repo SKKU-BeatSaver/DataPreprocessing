@@ -65,3 +65,7 @@ test.py
 Training_PTB/
 biosppy/
 docs/
+TEST_RESULTS/
+TEST_TRAIN/
+old_code/
+.png

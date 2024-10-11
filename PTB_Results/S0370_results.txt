@@ -1,0 +1,11 @@
+#Age: 17
+#Sex: male
+#Dx: 426783006
+Record name: S0370
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0370 (Channel 0):
+RMSSD = 0.0694 s
+Mean HR = 69.71 bpm
+Number of R-peaks = 132

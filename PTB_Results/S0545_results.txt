@@ -1,0 +1,11 @@
+#Age: 66
+#Sex: male
+#Dx: 164865005
+Record name: S0545
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0545 (Channel 0):
+RMSSD = 0.1777 s
+Mean HR = 117.27 bpm
+Number of R-peaks = 233

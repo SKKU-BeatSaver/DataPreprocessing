@@ -1,0 +1,11 @@
+#Age: 55
+#Sex: female
+#Dx: 164865005
+Record name: S0164
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0164 (Channel 0):
+RMSSD = 0.2493 s
+Mean HR = 54.79 bpm
+Number of R-peaks = 104

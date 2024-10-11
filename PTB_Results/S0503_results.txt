@@ -1,0 +1,11 @@
+#Age: 42
+#Sex: male
+#Dx: 698247007,74390002
+Record name: S0503
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0503 (Channel 0):
+RMSSD = 0.0390 s
+Mean HR = 55.79 bpm
+Number of R-peaks = 110

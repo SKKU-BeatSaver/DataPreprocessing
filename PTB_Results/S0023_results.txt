@@ -1,0 +1,11 @@
+#Age: 66
+#Sex: male
+#Dx: 164865005
+Record name: S0023
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 32000
+Processed S0023 (Channel 0):
+RMSSD = 0.0048 s
+Mean HR = 85.61 bpm
+Number of R-peaks = 45

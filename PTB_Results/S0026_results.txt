@@ -1,0 +1,11 @@
+#Age: 46
+#Sex: male
+#Dx: 164865005
+Record name: S0026
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0026 (Channel 0):
+RMSSD = 0.0034 s
+Mean HR = 86.50 bpm
+Number of R-peaks = 165

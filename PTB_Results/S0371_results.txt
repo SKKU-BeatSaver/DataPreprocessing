@@ -1,0 +1,11 @@
+#Age: 87
+#Sex: male
+#Dx: 164889003,698247007
+Record name: S0371
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0371 (Channel 0):
+RMSSD = 0.2463 s
+Mean HR = 41.42 bpm
+Number of R-peaks = 80

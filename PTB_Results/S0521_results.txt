@@ -1,0 +1,11 @@
+#Age: NaN
+#Sex: male
+#Dx: 426783006
+Record name: S0521
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0521 (Channel 0):
+RMSSD = 0.0133 s
+Mean HR = 76.33 bpm
+Number of R-peaks = 152

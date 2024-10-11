@@ -1,0 +1,11 @@
+#Age: 24
+#Sex: male
+#Dx: 426783006
+Record name: S0471
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0471 (Channel 0):
+RMSSD = 0.0866 s
+Mean HR = 63.84 bpm
+Number of R-peaks = 128

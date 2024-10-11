@@ -1,0 +1,11 @@
+#Age: 53
+#Sex: male
+#Dx: 84114007
+Record name: S0344
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 38400
+Processed S0344 (Channel 0):
+RMSSD = 0.0067 s
+Mean HR = 100.58 bpm
+Number of R-peaks = 64

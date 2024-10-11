@@ -1,0 +1,11 @@
+#Age: 44
+#Sex: male
+#Dx: 426783006
+Record name: S0486
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0486 (Channel 0):
+RMSSD = 0.0077 s
+Mean HR = 74.66 bpm
+Number of R-peaks = 149

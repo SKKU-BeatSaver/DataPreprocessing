@@ -1,0 +1,11 @@
+#Age: NaN
+#Sex: NaN
+#Dx: 368009
+Record name: S0323
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 38400
+Processed S0323 (Channel 0):
+RMSSD = 0.0063 s
+Mean HR = 73.78 bpm
+Number of R-peaks = 46

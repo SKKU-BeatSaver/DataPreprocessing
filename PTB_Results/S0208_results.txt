@@ -1,0 +1,11 @@
+#Age: 80
+#Sex: female
+#Dx: 164896001,164865005
+Record name: S0208
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0208 (Channel 0):
+RMSSD = 0.1914 s
+Mean HR = 109.76 bpm
+Number of R-peaks = 210

@@ -1,0 +1,11 @@
+#Age: 26
+#Sex: male
+#Dx: 426783006
+Record name: S0380
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0380 (Channel 0):
+RMSSD = 0.0345 s
+Mean HR = 58.54 bpm
+Number of R-peaks = 112

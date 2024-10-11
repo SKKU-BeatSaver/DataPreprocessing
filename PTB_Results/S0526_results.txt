@@ -1,0 +1,11 @@
+#Age: 35
+#Sex: female
+#Dx: 426783006
+Record name: S0526
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0526 (Channel 0):
+RMSSD = 0.1085 s
+Mean HR = 51.70 bpm
+Number of R-peaks = 103

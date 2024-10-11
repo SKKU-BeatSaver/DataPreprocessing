@@ -1,0 +1,11 @@
+#Age: 75
+#Sex: male
+#Dx: 53741008
+Record name: S0345
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 38400
+Processed S0345 (Channel 0):
+RMSSD = 0.2355 s
+Mean HR = 56.59 bpm
+Number of R-peaks = 35

@@ -1,0 +1,11 @@
+#Age: 56
+#Sex: male
+#Dx: 164889003,698247007
+Record name: S0538
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0538 (Channel 0):
+RMSSD = 0.3133 s
+Mean HR = 77.64 bpm
+Number of R-peaks = 155

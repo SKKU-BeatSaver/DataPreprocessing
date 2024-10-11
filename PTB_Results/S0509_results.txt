@@ -1,0 +1,11 @@
+#Age: 45
+#Sex: male
+#Dx: 426783006
+Record name: S0509
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0509 (Channel 0):
+RMSSD = 0.0265 s
+Mean HR = 62.24 bpm
+Number of R-peaks = 124

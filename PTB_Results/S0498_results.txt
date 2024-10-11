@@ -1,0 +1,11 @@
+#Age: 62
+#Sex: male
+#Dx: 164889003
+Record name: S0498
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0498 (Channel 0):
+RMSSD = 0.4253 s
+Mean HR = 49.07 bpm
+Number of R-peaks = 98

@@ -1,0 +1,11 @@
+#Age: 52
+#Sex: male
+#Dx: 266249003
+Record name: S0350
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0350 (Channel 0):
+RMSSD = 0.0251 s
+Mean HR = 65.09 bpm
+Number of R-peaks = 124
