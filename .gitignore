@@ -62,7 +62,7 @@ target/
 # Test
 test.py
 
-Training_PTB/
+# Training_PTB/
 biosppy/
 docs/
 TEST_RESULTS/
