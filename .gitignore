@@ -69,3 +69,9 @@ TEST_RESULTS/
 TEST_TRAIN/
 old_code/
 .png
+SINGLE_RESULTS/
+PTB_Results/
+LABEL/
+examples/
+ECG_Code/
+Training_PTB/
