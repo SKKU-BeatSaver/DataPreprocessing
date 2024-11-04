@@ -1,0 +1,11 @@
+#Age: 65
+#Sex: female
+#Dx: 53741008,164889003,698247007
+Record name: S0326
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 38400
+Processed S0326 (Channel 0):
+RMSSD = 0.1558 s
+Mean HR = 101.77 bpm
+Number of R-peaks = 64

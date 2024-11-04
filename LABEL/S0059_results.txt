@@ -1,0 +1,11 @@
+#Age: 67
+#Sex: male
+#Dx: 164865005
+Record name: S0059
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0059 (Channel 0):
+RMSSD = 0.1564 s
+Mean HR = 91.35 bpm
+Number of R-peaks = 175

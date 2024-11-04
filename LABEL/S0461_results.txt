@@ -1,0 +1,11 @@
+#Age: 52
+#Sex: male
+#Dx: 53741008,266249003
+Record name: S0461
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0461 (Channel 0):
+RMSSD = 0.0066 s
+Mean HR = 82.04 bpm
+Number of R-peaks = 163

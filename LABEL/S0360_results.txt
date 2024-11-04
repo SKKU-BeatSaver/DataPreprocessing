@@ -1,0 +1,11 @@
+#Age: 81
+#Sex: male
+#Dx: 698247007
+Record name: S0360
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 38400
+Processed S0360 (Channel 0):
+RMSSD = 0.0095 s
+Mean HR = 58.89 bpm
+Number of R-peaks = 37

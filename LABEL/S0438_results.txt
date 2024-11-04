@@ -1,0 +1,11 @@
+#Age: 32
+#Sex: male
+#Dx: 6374002
+Record name: S0438
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0438 (Channel 0):
+RMSSD = 0.0286 s
+Mean HR = 70.36 bpm
+Number of R-peaks = 140

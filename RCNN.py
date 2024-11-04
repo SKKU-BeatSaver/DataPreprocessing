@@ -4,6 +4,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import (Input, Conv1D, BatchNormalization, 
                                    MaxPooling1D, Dropout, Dense, GRU, 
                                    Bidirectional, GlobalMaxPooling1D)
+from tensorflow.keras.callbacks import EarlyStopping  # Import EarlyStopping
 from pathlib import Path
 import re
 import traceback
@@ -85,19 +86,16 @@ class ECGDataManager:
         
         return train_files, val_files, test_files
     
-    def create_dataset(self, files):
+    def create_dataset(self, files, fixed_input_length):
         """Create dataset from files with padding to handle variable lengths"""
         X_data = []
         y_data = []
         file_ids = []
         
-        # First pass: get max length and collect all data
-        max_length = 0
-        print("\nFirst pass: collecting data and finding max length...")
+        print("\nProcessing data...")
         for file in files:
             try:
                 features, label = self.load_and_preprocess_file(file)
-                max_length = max(max_length, len(features))
                 X_data.append(features)
                 y_data.append(label)
                 file_ids.append(self.get_subject_number(file))
@@ -108,23 +106,13 @@ class ECGDataManager:
         if not X_data:
             raise ValueError("No valid data could be processed from files")
         
-        print(f"\nFound max sequence length: {max_length}")
-        
-        # Second pass: pad sequences to max length
-        print("\nSecond pass: padding sequences...")
+        # Pad sequences to fixed length
         X_padded = []
-        for i, x in enumerate(X_data):
-            if len(x) < max_length:
-                # Pad with zeros to match max length
-                padding_length = max_length - len(x)
-                padded = np.vstack([x, np.zeros((padding_length, 1))])
-                X_padded.append(padded)
-            else:
-                X_padded.append(x)
-            
-            # Progress indicator
-            if (i + 1) % 10 == 0:
-                print(f"Padded {i + 1}/{len(X_data)} sequences")
+        for x in X_data:
+            padded = np.zeros((fixed_input_length, 1))
+            length = min(len(x), fixed_input_length)
+            padded[:length] = x[:length]  # Fill with the original data or truncate
+            X_padded.append(padded)
         
         try:
             # Convert to numpy arrays
@@ -139,13 +127,15 @@ class ECGDataManager:
             
         except Exception as e:
             print("\nError creating final arrays:")
-            print(f"Attempted shapes: {[x.shape for x in X_padded]}")
+            print(f"Attempted shapes: {[x.shape for x in X_data]}")
             raise ValueError(f"Error creating arrays: {str(e)}")
 
     def prepare_data(self):
         """Prepare training, validation, and test datasets"""
         # Split files
         train_files, val_files, test_files = self.split_files()
+        
+        fixed_input_length = 115200  # Set a fixed input length
         
         print(f"\nTotal files found: {len(train_files) + len(val_files) + len(test_files)}")
         print(f"Training files: {len(train_files)}")
@@ -154,13 +144,13 @@ class ECGDataManager:
         
         # Create datasets
         print("\nProcessing training data...")
-        X_train, y_train, train_ids = self.create_dataset(train_files)
+        X_train, y_train, train_ids = self.create_dataset(train_files, fixed_input_length)
         
         print("\nProcessing validation data...")
-        X_val, y_val, val_ids = self.create_dataset(val_files)
+        X_val, y_val, val_ids = self.create_dataset(val_files, fixed_input_length)
         
         print("\nProcessing test data...")
-        X_test, y_test, test_ids = self.create_dataset(test_files)
+        X_test, y_test, test_ids = self.create_dataset(test_files, fixed_input_length)
         
         # Print summary
         print("\nData Split Summary:")
@@ -246,97 +236,39 @@ class ECGClassifier:
         model.compile(
             optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
             loss='binary_crossentropy',
-            metrics=['accuracy', tf.keras.metrics.AUC()]
+            metrics=['accuracy']
         )
-        
         return model
+
+def main(data_directory):
+    # Initialize data manager
+    data_manager = ECGDataManager(data_directory)
     
-    def train(self, X_train, y_train, X_val, y_val, epochs=50, batch_size=32):
-        callbacks = [
-            tf.keras.callbacks.EarlyStopping(
-                monitor='val_loss',
-                patience=10,
-                restore_best_weights=True
-            ),
-            tf.keras.callbacks.ReduceLROnPlateau(
-                monitor='val_loss',
-                factor=0.5,
-                patience=5,
-                min_lr=1e-6
-            )
-        ]
-        
-        history = self.model.fit(
-            X_train, y_train,
-            validation_data=(X_val, y_val),
-            epochs=epochs,
-            batch_size=batch_size,
-            callbacks=callbacks,
-            verbose=1
-        )
-        
-        return history
-
-    def evaluate(self, X_test, y_test):
-        """Evaluate the model on test data"""
-        test_results = self.model.evaluate(X_test, y_test, verbose=1)
-        print("\nTest Results:")
-        for metric_name, value in zip(self.model.metrics_names, test_results):
-            print(f"{metric_name}: {value:.4f}")
-        return test_results
-
-    def predict(self, X):
-        """Make predictions on new data"""
-        return self.model.predict(X)
+    # Prepare data
+    datasets = data_manager.prepare_data()
     
-    def save_model(self, filepath):
-        """Save the model to disk"""
-        self.model.save(filepath)
-        print(f"Model saved to {filepath}")
+    # Instantiate the model
+    model = ECGClassifier(input_length=115200)
+    
+    # Define EarlyStopping callback
+    early_stopping = EarlyStopping(monitor='val_loss', patience=5, verbose=1, restore_best_weights=True)
 
-def main():
-    try:
-        print("Starting data preparation...")
-        
-        # Initialize data manager
-        data_manager = ECGDataManager("./PTB_Results")
-        
-        # Prepare datasets
-        datasets = data_manager.prepare_data()
-        
-        # Create and train model
-        input_length = datasets['train']['X'].shape[1]
-        print(f"\nCreating model with input length: {input_length}")
-        
-        classifier = ECGClassifier(input_length=input_length)
-        
-        # Train model
-        print("\nTraining model...")
-        history = classifier.train(
-            datasets['train']['X'], 
-            datasets['train']['y'],
-            datasets['val']['X'], 
-            datasets['val']['y']
-        )
-        
-        # Evaluate on test set
-        print("\nEvaluating model on test set...")
-        test_results = classifier.evaluate(
-            datasets['test']['X'],
-            datasets['test']['y']
-        )
-        
-        # Save the model
-        classifier.save_model("ecg_classifier_model.h5")
-        
-        print("\nTraining and evaluation completed!")
-        
-    except Exception as e:
-        print("\nError during execution:")
-        print(f"Error type: {type(e).__name__}")
-        print(f"Error message: {str(e)}")
-        print("\nTraceback:")
-        traceback.print_exc()
+    # Train the model with EarlyStopping
+    print("\nTraining the model...")
+    model.model.fit(
+        datasets['train']['X'], datasets['train']['y'],
+        validation_data=(datasets['val']['X'], datasets['val']['y']),
+        epochs=100,  # You may want to increase the epochs to allow early stopping to take effect
+        batch_size=32,
+        verbose=1,
+        callbacks=[early_stopping]  # Add the callback here
+    )
+    
+    # Evaluate the model on the test set
+    print("\nEvaluating the model...")
+    test_loss, test_accuracy = model.model.evaluate(datasets['test']['X'], datasets['test']['y'], verbose=1)
+    print(f"Test accuracy: {test_accuracy:.4f}")
 
 if __name__ == "__main__":
-    main()
+    data_dir = "/"  # Update this path to your data directory
+    main(data_dir)

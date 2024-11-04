@@ -1,0 +1,11 @@
+#Age: 80
+#Sex: female
+#Dx: 164865005
+Record name: S0267
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0267 (Channel 0):
+RMSSD = 0.0525 s
+Mean HR = 72.68 bpm
+Number of R-peaks = 139

@@ -1,0 +1,11 @@
+#Age: 60
+#Sex: male
+#Dx: 164865005
+Record name: S0101
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0101 (Channel 0):
+RMSSD = 0.0135 s
+Mean HR = 58.39 bpm
+Number of R-peaks = 111

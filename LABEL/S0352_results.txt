@@ -1,0 +1,11 @@
+#Age: 85
+#Sex: female
+#Dx: 164865005
+Record name: S0352
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 38400
+Processed S0352 (Channel 0):
+RMSSD = 0.0433 s
+Mean HR = 106.33 bpm
+Number of R-peaks = 67

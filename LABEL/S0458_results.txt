@@ -1,0 +1,11 @@
+#Age: 38
+#Sex: female
+#Dx: 368009,427084000
+Record name: S0458
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0458 (Channel 0):
+RMSSD = 0.0159 s
+Mean HR = 74.43 bpm
+Number of R-peaks = 148

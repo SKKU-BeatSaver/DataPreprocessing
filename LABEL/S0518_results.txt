@@ -1,0 +1,11 @@
+#Age: 69
+#Sex: male
+#Dx: 164865005
+Record name: S0518
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0518 (Channel 0):
+RMSSD = 0.0354 s
+Mean HR = 43.38 bpm
+Number of R-peaks = 87

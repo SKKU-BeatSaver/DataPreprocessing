@@ -1,0 +1,11 @@
+#Age: 67
+#Sex: male
+#Dx: 164895002
+Record name: S0541
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0541 (Channel 0):
+RMSSD = 0.5272 s
+Mean HR = 56.71 bpm
+Number of R-peaks = 112

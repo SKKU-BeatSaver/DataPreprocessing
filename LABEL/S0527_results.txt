@@ -1,0 +1,11 @@
+#Age: 35
+#Sex: female
+#Dx: 426783006
+Record name: S0527
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0527 (Channel 0):
+RMSSD = 0.1056 s
+Mean HR = 46.64 bpm
+Number of R-peaks = 93

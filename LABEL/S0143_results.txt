@@ -1,0 +1,11 @@
+#Age: 44
+#Sex: male
+#Dx: 164865005
+Record name: S0143
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0143 (Channel 0):
+RMSSD = 0.0085 s
+Mean HR = 85.13 bpm
+Number of R-peaks = 163

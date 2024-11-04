@@ -1,0 +1,11 @@
+#Age: 74
+#Sex: female
+#Dx: 164865005
+Record name: S0075
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0075 (Channel 0):
+RMSSD = 0.0087 s
+Mean HR = 74.75 bpm
+Number of R-peaks = 143

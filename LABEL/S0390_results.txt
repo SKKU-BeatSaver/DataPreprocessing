@@ -1,0 +1,11 @@
+#Age: 50
+#Sex: male
+#Dx: 426783006
+Record name: S0390
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0390 (Channel 0):
+RMSSD = 0.0150 s
+Mean HR = 67.50 bpm
+Number of R-peaks = 129

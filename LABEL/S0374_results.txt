@@ -1,0 +1,11 @@
+#Age: 73
+#Sex: male
+#Dx: 266249003
+Record name: S0374
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0374 (Channel 0):
+RMSSD = 0.0050 s
+Mean HR = 88.09 bpm
+Number of R-peaks = 168

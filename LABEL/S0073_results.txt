@@ -1,0 +1,11 @@
+#Age: 76
+#Sex: male
+#Dx: 164865005
+Record name: S0073
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0073 (Channel 0):
+RMSSD = 0.4747 s
+Mean HR = 59.23 bpm
+Number of R-peaks = 113

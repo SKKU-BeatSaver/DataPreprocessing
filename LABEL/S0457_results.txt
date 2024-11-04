@@ -1,0 +1,11 @@
+#Age: 56
+#Sex: male
+#Dx: 164865005
+Record name: S0457
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0457 (Channel 0):
+RMSSD = 0.0057 s
+Mean HR = 70.64 bpm
+Number of R-peaks = 141

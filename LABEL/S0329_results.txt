@@ -1,0 +1,11 @@
+#Age: 74
+#Sex: female
+#Dx: 84114007
+Record name: S0329
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 38400
+Processed S0329 (Channel 0):
+RMSSD = 0.5297 s
+Mean HR = 58.17 bpm
+Number of R-peaks = 37

@@ -1,0 +1,11 @@
+#Age: 66
+#Sex: female
+#Dx: 164889003,698247007
+Record name: S0365
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 38400
+Processed S0365 (Channel 0):
+RMSSD = 0.1306 s
+Mean HR = 58.50 bpm
+Number of R-peaks = 37

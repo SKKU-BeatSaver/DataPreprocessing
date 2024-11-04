@@ -1,0 +1,11 @@
+#Age: NaN
+#Sex: male
+#Dx: 426783006
+Record name: S0505
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0505 (Channel 0):
+RMSSD = 0.0257 s
+Mean HR = 61.31 bpm
+Number of R-peaks = 122

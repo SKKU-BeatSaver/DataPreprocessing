@@ -1,0 +1,11 @@
+#Age: 68
+#Sex: male
+#Dx: 164865005
+Record name: S0465
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0465 (Channel 0):
+RMSSD = 0.0545 s
+Mean HR = 58.58 bpm
+Number of R-peaks = 117

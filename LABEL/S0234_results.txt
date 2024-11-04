@@ -1,0 +1,11 @@
+#Age: 48
+#Sex: male
+#Dx: 164896001,164865005
+Record name: S0234
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0234 (Channel 0):
+RMSSD = 0.0190 s
+Mean HR = 58.59 bpm
+Number of R-peaks = 111

@@ -1,0 +1,11 @@
+#Age: 55
+#Sex: male
+#Dx: 426783006
+Record name: S0464
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 120012
+Processed S0464 (Channel 0):
+RMSSD = 0.0355 s
+Mean HR = 60.46 bpm
+Number of R-peaks = 120

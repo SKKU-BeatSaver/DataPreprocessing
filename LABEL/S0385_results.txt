@@ -1,0 +1,11 @@
+#Age: 75
+#Sex: female
+#Dx: 164889003,698247007
+Record name: S0385
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 38400
+Processed S0385 (Channel 0):
+RMSSD = 0.2337 s
+Mean HR = 79.92 bpm
+Number of R-peaks = 50

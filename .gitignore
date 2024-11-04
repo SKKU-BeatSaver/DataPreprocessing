@@ -69,3 +69,5 @@ TEST_RESULTS/
 TEST_TRAIN/
 old_code/
 .png
+Label/
+Data_Result/

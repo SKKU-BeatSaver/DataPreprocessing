@@ -1,0 +1,2 @@
+Total 1s found in last rows: 338
+Total 0s found in last rows: 169

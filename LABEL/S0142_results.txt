@@ -1,0 +1,11 @@
+#Age: 44
+#Sex: male
+#Dx: 164865005
+Record name: S0142
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0142 (Channel 0):
+RMSSD = 0.3051 s
+Mean HR = 62.79 bpm
+Number of R-peaks = 120

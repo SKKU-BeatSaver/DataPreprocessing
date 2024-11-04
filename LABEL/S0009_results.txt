@@ -1,0 +1,11 @@
+#Age: 74
+#Sex: male
+#Dx: 164865005
+Record name: S0009
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115174
+Processed S0009 (Channel 0):
+RMSSD = 0.0991 s
+Mean HR = 95.32 bpm
+Number of R-peaks = 182

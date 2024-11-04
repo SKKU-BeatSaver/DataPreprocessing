@@ -1,0 +1,11 @@
+#Age: 68
+#Sex: female
+#Dx: 164865005
+Record name: S0040
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0040 (Channel 0):
+RMSSD = 0.0043 s
+Mean HR = 82.72 bpm
+Number of R-peaks = 158

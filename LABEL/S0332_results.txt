@@ -1,0 +1,11 @@
+#Age: 37
+#Sex: male
+#Dx: 426783006
+Record name: S0332
+Number of signals: 1
+Sampling frequency: 1000
+Number of samples: 115200
+Processed S0332 (Channel 0):
+RMSSD = 0.0274 s
+Mean HR = 68.63 bpm
+Number of R-peaks = 131
