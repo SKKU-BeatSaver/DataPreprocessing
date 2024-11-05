@@ -1,0 +1,28 @@
+{
+    "test_metrics": {
+        "accuracy": 66.23376623376623,
+        "precision": 69.23076912426036,
+        "recall": 88.23529394463667,
+        "f1": 77.58620183561268,
+        "true_positives": 45,
+        "false_positives": 20,
+        "true_negatives": 6,
+        "false_negatives": 6,
+        "test_loss": 0.18530671074986457
+    },
+    "timestamp": "2024-11-05 09:31:30.770527",
+    "data_distribution": {
+        "train": {
+            "normal": 236,
+            "abnormal": 118
+        },
+        "val": {
+            "normal": 51,
+            "abnormal": 25
+        },
+        "test": {
+            "normal": 51,
+            "abnormal": 26
+        }
+    }
+}
