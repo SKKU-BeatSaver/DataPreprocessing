@@ -1,0 +1,1932 @@
+Starting ECG classification at 2024-11-05 17:48:16.542662
+Initializing ECG Data Manager...
+
+Initializing with directories:
+Normal dir: output_files/normal
+Abnormal dir: output_files/abnormal
+Maximum signal length: 120012
+
+Preparing datasets...
+
+Found 338 normal files and 169 abnormal files
+
+Processing training files...
+Processing validation files...
+Processing test files...
+
+Dataset shapes:
+X_train: torch.Size([354, 1, 120012]), y_train: torch.Size([354])
+X_val: torch.Size([76, 1, 120012]), y_val: torch.Size([76])
+X_test: torch.Size([77, 1, 120012]), y_test: torch.Size([77])
+
+Dataset Shapes:
+Training: torch.Size([354, 1, 120012]), Labels: torch.Size([354])
+Validation: torch.Size([76, 1, 120012]), Labels: torch.Size([76])
+Test: torch.Size([77, 1, 120012]), Labels: torch.Size([77])
+
+Class Distribution:
+Training Set - Normal: 236, Abnormal: 118
+Validation Set - Normal: 51, Abnormal: 25
+Test Set - Normal: 51, Abnormal: 26
+
+Initializing model...
+
+Model Architecture:
+ConvNetQuake(
+  (feature_extractor): Sequential(
+    (0): Conv1d(1, 64, kernel_size=(15,), stride=(2,), padding=(7,))
+    (1): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): LeakyReLU(negative_slope=0.2)
+    (3): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (4): Sequential(
+      (0): Conv1d(64, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+      (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): LeakyReLU(negative_slope=0.2)
+      (3): Conv1d(128, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+      (4): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (5): LeakyReLU(negative_slope=0.2)
+      (6): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    )
+    (5): Sequential(
+      (0): Conv1d(128, 256, kernel_size=(9,), stride=(1,), padding=(4,))
+      (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): LeakyReLU(negative_slope=0.2)
+      (3): Conv1d(256, 256, kernel_size=(3,), stride=(1,), padding=(1,))
+      (4): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (5): LeakyReLU(negative_slope=0.2)
+      (6): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    )
+    (6): Sequential(
+      (0): Conv1d(256, 512, kernel_size=(9,), stride=(1,), padding=(4,))
+      (1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): LeakyReLU(negative_slope=0.2)
+      (3): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,))
+      (4): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (5): LeakyReLU(negative_slope=0.2)
+      (6): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    )
+    (7): AdaptiveAvgPool1d(output_size=1)
+    (8): Flatten(start_dim=1, end_dim=-1)
+  )
+  (auxiliary_features): Sequential(
+    (0): StatisticalFeatures()
+    (1): BatchNorm1d(4, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Linear(in_features=4, out_features=16, bias=True)
+    (3): LeakyReLU(negative_slope=0.2)
+  )
+  (classifier): Sequential(
+    (0): Linear(in_features=528, out_features=256, bias=True)
+    (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): LeakyReLU(negative_slope=0.2)
+    (3): Dropout(p=0.5, inplace=False)
+    (4): Linear(in_features=256, out_features=128, bias=True)
+    (5): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): LeakyReLU(negative_slope=0.2)
+    (7): Dropout(p=0.5, inplace=False)
+    (8): Linear(in_features=128, out_features=64, bias=True)
+    (9): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (10): LeakyReLU(negative_slope=0.2)
+    (11): Dropout(p=0.5, inplace=False)
+    (12): Linear(in_features=64, out_features=1, bias=True)
+    (13): Sigmoid()
+  )
+)
+
+Total parameters: 2,764,633
+Trainable parameters: 2,764,633
+
+Starting model training...
+Training Parameters:
+Epochs: 300
+Learning Rate: 0.0001
+Batch Size: 16
+
+Epoch 1/300
+Train Loss: 3.5978, Val Loss: 1.1103
+Train Metrics: Acc=43.8%, P=66.1%, R=32.2%, F1=43.3%
+Val Metrics: Acc=38.2%, P=75.0%, R=11.8%, F1=20.3%
+Learning rate: 9.76e-05
+
+Epoch 2/300
+Train Loss: 3.4725, Val Loss: 1.1843
+Train Metrics: Acc=47.7%, P=71.1%, R=36.4%, F1=48.2%
+Val Metrics: Acc=46.1%, P=66.7%, R=39.2%, F1=49.4%
+Learning rate: 9.05e-05
+
+Epoch 3/300
+Train Loss: 3.5011, Val Loss: 1.4822
+Train Metrics: Acc=50.0%, P=71.9%, R=41.1%, F1=52.3%
+Val Metrics: Acc=50.0%, P=74.1%, R=39.2%, F1=51.3%
+Learning rate: 7.96e-05
+
+Epoch 4/300
+Train Loss: 3.5650, Val Loss: 1.4791
+Train Metrics: Acc=52.8%, P=76.7%, R=41.9%, F1=54.2%
+Val Metrics: Acc=52.6%, P=77.8%, R=41.2%, F1=53.8%
+Learning rate: 6.58e-05
+
+Epoch 5/300
+Train Loss: 2.9430, Val Loss: 1.5416
+Train Metrics: Acc=54.5%, P=79.1%, R=43.2%, F1=55.9%
+Val Metrics: Acc=46.1%, P=75.0%, R=29.4%, F1=42.3%
+Learning rate: 5.05e-05
+
+Epoch 6/300
+Train Loss: 3.2281, Val Loss: 1.4837
+Train Metrics: Acc=46.6%, P=68.2%, R=37.3%, F1=48.2%
+Val Metrics: Acc=51.3%, P=75.0%, R=41.2%, F1=53.2%
+Learning rate: 3.52e-05
+
+Epoch 7/300
+Train Loss: 3.3409, Val Loss: 1.4839
+Train Metrics: Acc=52.3%, P=77.7%, R=39.8%, F1=52.7%
+Val Metrics: Acc=59.2%, P=79.4%, R=52.9%, F1=63.5%
+Learning rate: 2.14e-05
+
+Epoch 8/300
+Train Loss: 2.8722, Val Loss: 1.6167
+Train Metrics: Acc=49.2%, P=74.6%, R=36.0%, F1=48.6%
+Val Metrics: Acc=55.3%, P=79.3%, R=45.1%, F1=57.5%
+Learning rate: 1.05e-05
+
+Epoch 9/300
+Train Loss: 2.8875, Val Loss: 1.0698
+Train Metrics: Acc=52.8%, P=74.1%, R=44.9%, F1=55.9%
+Val Metrics: Acc=60.5%, P=83.9%, R=51.0%, F1=63.4%
+Learning rate: 3.42e-06
+
+Epoch 10/300
+Train Loss: 3.6406, Val Loss: 1.8395
+Train Metrics: Acc=49.2%, P=70.9%, R=40.3%, F1=51.4%
+Val Metrics: Acc=52.6%, P=80.0%, R=39.2%, F1=52.6%
+Learning rate: 1.00e-04
+
+Epoch 11/300
+Train Loss: 3.5521, Val Loss: 1.4482
+Train Metrics: Acc=46.9%, P=68.5%, R=37.7%, F1=48.6%
+Val Metrics: Acc=46.1%, P=66.7%, R=39.2%, F1=49.4%
+Learning rate: 9.94e-05
+
+Epoch 12/300
+Train Loss: 3.3568, Val Loss: 1.0496
+Train Metrics: Acc=52.0%, P=73.2%, R=44.1%, F1=55.0%
+Val Metrics: Acc=55.3%, P=73.0%, R=52.9%, F1=61.4%
+Learning rate: 9.76e-05
+
+Epoch 13/300
+Train Loss: 3.0716, Val Loss: 1.6053
+Train Metrics: Acc=47.5%, P=67.6%, R=40.7%, F1=50.8%
+Val Metrics: Acc=57.9%, P=88.0%, R=43.1%, F1=57.9%
+Learning rate: 9.46e-05
+
+Epoch 14/300
+Train Loss: 3.2574, Val Loss: 0.7542
+Train Metrics: Acc=50.6%, P=71.6%, R=42.8%, F1=53.6%
+Val Metrics: Acc=68.4%, P=78.7%, R=72.5%, F1=75.5%
+Learning rate: 9.05e-05
+
+Epoch 15/300
+Train Loss: 3.4690, Val Loss: 0.9065
+Train Metrics: Acc=50.6%, P=71.9%, R=42.4%, F1=53.3%
+Val Metrics: Acc=47.4%, P=86.7%, R=25.5%, F1=39.4%
+Learning rate: 8.55e-05
+
+Epoch 16/300
+Train Loss: 2.4222, Val Loss: 1.0187
+Train Metrics: Acc=51.4%, P=73.2%, R=42.8%, F1=54.0%
+Val Metrics: Acc=43.4%, P=90.0%, R=17.6%, F1=29.5%
+Learning rate: 7.96e-05
+
+Epoch 17/300
+Train Loss: 2.6408, Val Loss: 1.5587
+Train Metrics: Acc=57.1%, P=77.6%, R=50.0%, F1=60.8%
+Val Metrics: Acc=61.8%, P=84.4%, R=52.9%, F1=65.1%
+Learning rate: 7.30e-05
+
+Epoch 18/300
+Train Loss: 3.2648, Val Loss: 1.2580
+Train Metrics: Acc=51.4%, P=70.8%, R=46.2%, F1=55.9%
+Val Metrics: Acc=68.4%, P=81.4%, R=68.6%, F1=74.5%
+Learning rate: 6.58e-05
+
+Epoch 19/300
+Train Loss: 3.4074, Val Loss: 1.4566
+Train Metrics: Acc=51.7%, P=73.7%, R=42.8%, F1=54.2%
+Val Metrics: Acc=55.3%, P=81.5%, R=43.1%, F1=56.4%
+Learning rate: 5.82e-05
+
+Epoch 20/300
+Train Loss: 2.7097, Val Loss: 0.7814
+Train Metrics: Acc=55.9%, P=76.0%, R=49.6%, F1=60.0%
+Val Metrics: Acc=65.8%, P=76.6%, R=70.6%, F1=73.5%
+Learning rate: 5.05e-05
+
+Epoch 21/300
+Train Loss: 2.9766, Val Loss: 1.1699
+Train Metrics: Acc=56.2%, P=76.1%, R=50.0%, F1=60.4%
+Val Metrics: Acc=73.7%, P=77.2%, R=86.3%, F1=81.5%
+Learning rate: 4.28e-05
+
+Epoch 22/300
+Train Loss: 2.6490, Val Loss: 0.8866
+Train Metrics: Acc=53.1%, P=72.7%, R=47.5%, F1=57.4%
+Val Metrics: Acc=69.7%, P=74.1%, R=84.3%, F1=78.9%
+Learning rate: 3.52e-05
+
+Epoch 23/300
+Train Loss: 2.6513, Val Loss: 1.7056
+Train Metrics: Acc=55.1%, P=74.8%, R=49.2%, F1=59.3%
+Val Metrics: Acc=60.5%, P=78.4%, R=56.9%, F1=65.9%
+Learning rate: 2.80e-05
+
+Epoch 24/300
+Train Loss: 2.8855, Val Loss: 0.9000
+Train Metrics: Acc=53.7%, P=73.7%, R=47.5%, F1=57.7%
+Val Metrics: Acc=67.1%, P=73.2%, R=80.4%, F1=76.6%
+Learning rate: 2.14e-05
+
+Epoch 25/300
+Train Loss: 3.2932, Val Loss: 1.2778
+Train Metrics: Acc=52.0%, P=71.4%, R=46.6%, F1=56.4%
+Val Metrics: Acc=69.7%, P=78.0%, R=76.5%, F1=77.2%
+Learning rate: 1.55e-05
+
+Epoch 26/300
+Train Loss: 2.5258, Val Loss: 1.4223
+Train Metrics: Acc=55.6%, P=74.5%, R=50.8%, F1=60.5%
+Val Metrics: Acc=65.8%, P=73.6%, R=76.5%, F1=75.0%
+Learning rate: 1.05e-05
+
+Epoch 27/300
+Train Loss: 2.4579, Val Loss: 0.6523
+Train Metrics: Acc=57.6%, P=76.5%, R=52.5%, F1=62.3%
+Val Metrics: Acc=71.1%, P=74.6%, R=86.3%, F1=80.0%
+Learning rate: 6.40e-06
+
+Epoch 28/300
+Train Loss: 2.9519, Val Loss: 0.9352
+Train Metrics: Acc=52.8%, P=69.7%, R=51.7%, F1=59.4%
+Val Metrics: Acc=68.4%, P=74.5%, R=80.4%, F1=77.4%
+Learning rate: 3.42e-06
+
+Epoch 29/300
+Train Loss: 2.8403, Val Loss: 0.8330
+Train Metrics: Acc=56.2%, P=75.8%, R=50.4%, F1=60.6%
+Val Metrics: Acc=68.4%, P=75.5%, R=78.4%, F1=76.9%
+Learning rate: 1.61e-06
+
+Epoch 30/300
+Train Loss: 2.9278, Val Loss: 0.9993
+Train Metrics: Acc=55.1%, P=71.8%, R=53.8%, F1=61.5%
+Val Metrics: Acc=68.4%, P=74.5%, R=80.4%, F1=77.4%
+Learning rate: 1.00e-04
+
+Epoch 31/300
+Train Loss: 2.2681, Val Loss: 1.2173
+Train Metrics: Acc=53.1%, P=72.2%, R=48.3%, F1=57.9%
+Val Metrics: Acc=69.7%, P=76.9%, R=78.4%, F1=77.7%
+Learning rate: 9.98e-05
+
+Epoch 32/300
+Train Loss: 2.7970, Val Loss: 0.8100
+Train Metrics: Acc=52.8%, P=70.9%, R=49.6%, F1=58.4%
+Val Metrics: Acc=71.1%, P=73.8%, R=88.2%, F1=80.4%
+Learning rate: 9.94e-05
+
+Epoch 33/300
+Train Loss: 2.7511, Val Loss: 1.2363
+Train Metrics: Acc=50.3%, P=70.8%, R=43.2%, F1=53.7%
+Val Metrics: Acc=75.0%, P=80.8%, R=82.4%, F1=81.6%
+Learning rate: 9.86e-05
+
+Epoch 34/300
+Train Loss: 2.8325, Val Loss: 0.3687
+Train Metrics: Acc=53.7%, P=70.9%, R=51.7%, F1=59.8%
+Val Metrics: Acc=71.1%, P=70.4%, R=98.0%, F1=82.0%
+Learning rate: 9.76e-05
+
+Epoch 35/300
+Train Loss: 2.3572, Val Loss: 1.2034
+Train Metrics: Acc=52.8%, P=71.2%, R=49.2%, F1=58.1%
+Val Metrics: Acc=65.8%, P=70.5%, R=84.3%, F1=76.8%
+Learning rate: 9.62e-05
+
+Epoch 36/300
+Train Loss: 2.9092, Val Loss: 0.6405
+Train Metrics: Acc=52.8%, P=71.2%, R=49.2%, F1=58.1%
+Val Metrics: Acc=61.8%, P=71.2%, R=72.5%, F1=71.8%
+Learning rate: 9.46e-05
+
+Epoch 37/300
+Train Loss: 3.0061, Val Loss: 0.4317
+Train Metrics: Acc=56.2%, P=74.8%, R=51.7%, F1=61.2%
+Val Metrics: Acc=67.1%, P=71.0%, R=86.3%, F1=77.9%
+Learning rate: 9.27e-05
+
+Epoch 38/300
+Train Loss: 2.9662, Val Loss: 1.6764
+Train Metrics: Acc=54.2%, P=71.0%, R=53.0%, F1=60.7%
+Val Metrics: Acc=64.5%, P=71.4%, R=78.4%, F1=74.8%
+Learning rate: 9.05e-05
+
+Epoch 39/300
+Train Loss: 2.9972, Val Loss: 1.4227
+Train Metrics: Acc=56.2%, P=73.4%, R=53.8%, F1=62.1%
+Val Metrics: Acc=63.2%, P=70.2%, R=78.4%, F1=74.1%
+Learning rate: 8.81e-05
+
+Epoch 40/300
+Train Loss: 2.7598, Val Loss: 0.9145
+Train Metrics: Acc=54.0%, P=72.1%, R=50.4%, F1=59.4%
+Val Metrics: Acc=65.8%, P=71.9%, R=80.4%, F1=75.9%
+Learning rate: 8.55e-05
+
+Epoch 41/300
+Train Loss: 2.3535, Val Loss: 1.3226
+Train Metrics: Acc=53.1%, P=68.6%, R=54.7%, F1=60.8%
+Val Metrics: Acc=65.8%, P=71.9%, R=80.4%, F1=75.9%
+Learning rate: 8.26e-05
+
+Epoch 42/300
+Train Loss: 2.5429, Val Loss: 2.3576
+Train Metrics: Acc=55.1%, P=69.9%, R=57.2%, F1=62.9%
+Val Metrics: Acc=64.5%, P=73.1%, R=74.5%, F1=73.8%
+Learning rate: 7.96e-05
+
+Epoch 43/300
+Train Loss: 2.6223, Val Loss: 1.4567
+Train Metrics: Acc=56.2%, P=71.0%, R=58.1%, F1=63.9%
+Val Metrics: Acc=69.7%, P=71.9%, R=90.2%, F1=80.0%
+Learning rate: 7.64e-05
+
+Epoch 44/300
+Train Loss: 2.5592, Val Loss: 2.0453
+Train Metrics: Acc=55.4%, P=70.1%, R=57.6%, F1=63.3%
+Val Metrics: Acc=68.4%, P=71.4%, R=88.2%, F1=78.9%
+Learning rate: 7.30e-05
+
+Epoch 45/300
+Train Loss: 3.2377, Val Loss: 0.5626
+Train Metrics: Acc=61.9%, P=75.9%, R=62.7%, F1=68.7%
+Val Metrics: Acc=71.1%, P=71.6%, R=94.1%, F1=81.4%
+Learning rate: 6.94e-05
+
+Epoch 46/300
+Train Loss: 3.3934, Val Loss: 0.9828
+Train Metrics: Acc=54.5%, P=69.8%, R=55.9%, F1=62.1%
+Val Metrics: Acc=67.1%, P=71.7%, R=84.3%, F1=77.5%
+Learning rate: 6.58e-05
+
+Epoch 47/300
+Train Loss: 2.9848, Val Loss: 1.1017
+Train Metrics: Acc=52.5%, P=67.2%, R=56.4%, F1=61.3%
+Val Metrics: Acc=68.4%, P=72.1%, R=86.3%, F1=78.6%
+Learning rate: 6.21e-05
+
+Epoch 48/300
+Train Loss: 2.3057, Val Loss: 1.1464
+Train Metrics: Acc=55.6%, P=69.7%, R=59.3%, F1=64.1%
+Val Metrics: Acc=68.4%, P=72.1%, R=86.3%, F1=78.6%
+Learning rate: 5.82e-05
+
+Epoch 49/300
+Train Loss: 2.3037, Val Loss: 1.0116
+Train Metrics: Acc=55.4%, P=69.1%, R=59.7%, F1=64.1%
+Val Metrics: Acc=65.8%, P=71.2%, R=82.4%, F1=76.4%
+Learning rate: 5.44e-05
+
+Epoch 50/300
+Train Loss: 2.6106, Val Loss: 0.5168
+Train Metrics: Acc=55.4%, P=70.7%, R=56.4%, F1=62.7%
+Val Metrics: Acc=68.4%, P=71.4%, R=88.2%, F1=78.9%
+Learning rate: 5.05e-05
+
+Epoch 51/300
+Train Loss: 3.2297, Val Loss: 1.8783
+Train Metrics: Acc=54.0%, P=68.5%, R=57.2%, F1=62.4%
+Val Metrics: Acc=64.5%, P=72.2%, R=76.5%, F1=74.3%
+Learning rate: 4.66e-05
+
+Epoch 52/300
+Train Loss: 2.6367, Val Loss: 0.9318
+Train Metrics: Acc=52.3%, P=67.7%, R=54.2%, F1=60.2%
+Val Metrics: Acc=68.4%, P=71.4%, R=88.2%, F1=78.9%
+Learning rate: 4.28e-05
+
+Epoch 53/300
+Train Loss: 3.0354, Val Loss: 0.5262
+Train Metrics: Acc=59.0%, P=71.8%, R=63.6%, F1=67.4%
+Val Metrics: Acc=71.1%, P=71.6%, R=94.1%, F1=81.4%
+Learning rate: 3.89e-05
+
+Epoch 54/300
+Train Loss: 2.4935, Val Loss: 1.0190
+Train Metrics: Acc=59.9%, P=72.8%, R=63.6%, F1=67.9%
+Val Metrics: Acc=69.7%, P=73.3%, R=86.3%, F1=79.3%
+Learning rate: 3.52e-05
+
+Epoch 55/300
+Train Loss: 2.5361, Val Loss: 0.5708
+Train Metrics: Acc=59.0%, P=72.2%, R=62.7%, F1=67.1%
+Val Metrics: Acc=71.1%, P=73.0%, R=90.2%, F1=80.7%
+Learning rate: 3.16e-05
+
+Epoch 56/300
+Train Loss: 2.5747, Val Loss: 0.9117
+Train Metrics: Acc=61.0%, P=75.0%, R=62.3%, F1=68.1%
+Val Metrics: Acc=67.1%, P=72.4%, R=82.4%, F1=77.1%
+Learning rate: 2.80e-05
+
+Epoch 57/300
+Train Loss: 2.9043, Val Loss: 1.0528
+Train Metrics: Acc=62.4%, P=74.6%, R=66.1%, F1=70.1%
+Val Metrics: Acc=68.4%, P=70.8%, R=90.2%, F1=79.3%
+Learning rate: 2.46e-05
+
+Epoch 58/300
+Train Loss: 3.1629, Val Loss: 0.8001
+Train Metrics: Acc=61.0%, P=74.7%, R=62.7%, F1=68.2%
+Val Metrics: Acc=68.4%, P=71.4%, R=88.2%, F1=78.9%
+Learning rate: 2.14e-05
+
+Epoch 59/300
+Train Loss: 2.7038, Val Loss: 0.8472
+Train Metrics: Acc=59.9%, P=73.0%, R=63.1%, F1=67.7%
+Val Metrics: Acc=68.4%, P=71.4%, R=88.2%, F1=78.9%
+Learning rate: 1.84e-05
+
+Epoch 60/300
+Train Loss: 2.2657, Val Loss: 1.3541
+Train Metrics: Acc=62.1%, P=73.4%, R=67.8%, F1=70.5%
+Val Metrics: Acc=71.1%, P=72.3%, R=92.2%, F1=81.0%
+Learning rate: 1.55e-05
+
+Epoch 61/300
+Train Loss: 2.2329, Val Loss: 0.7300
+Train Metrics: Acc=59.0%, P=71.2%, R=64.8%, F1=67.8%
+Val Metrics: Acc=67.1%, P=69.1%, R=92.2%, F1=79.0%
+Learning rate: 1.29e-05
+
+Epoch 62/300
+Train Loss: 2.8613, Val Loss: 0.6721
+Train Metrics: Acc=60.2%, P=71.7%, R=66.5%, F1=69.0%
+Val Metrics: Acc=65.8%, P=69.2%, R=88.2%, F1=77.6%
+Learning rate: 1.05e-05
+
+Epoch 63/300
+Train Loss: 2.3585, Val Loss: 0.5473
+Train Metrics: Acc=59.9%, P=75.3%, R=59.3%, F1=66.4%
+Val Metrics: Acc=68.4%, P=71.4%, R=88.2%, F1=78.9%
+Learning rate: 8.29e-06
+
+Epoch 64/300
+Train Loss: 2.2669, Val Loss: 0.6754
+Train Metrics: Acc=63.6%, P=75.4%, R=67.4%, F1=71.1%
+Val Metrics: Acc=65.8%, P=71.2%, R=82.4%, F1=76.4%
+Learning rate: 6.40e-06
+
+Epoch 65/300
+Train Loss: 1.8291, Val Loss: 0.5767
+Train Metrics: Acc=59.3%, P=73.0%, R=61.9%, F1=67.0%
+Val Metrics: Acc=65.8%, P=68.7%, R=90.2%, F1=78.0%
+Learning rate: 4.77e-06
+
+Epoch 66/300
+Train Loss: 2.6876, Val Loss: 0.7518
+Train Metrics: Acc=59.3%, P=73.7%, R=60.6%, F1=66.5%
+Val Metrics: Acc=68.4%, P=70.1%, R=92.2%, F1=79.7%
+Learning rate: 3.42e-06
+
+Epoch 67/300
+Train Loss: 2.4869, Val Loss: 0.5897
+Train Metrics: Acc=57.3%, P=71.6%, R=59.7%, F1=65.1%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 2.37e-06
+
+Epoch 68/300
+Train Loss: 1.9977, Val Loss: 0.6020
+Train Metrics: Acc=61.3%, P=75.4%, R=62.3%, F1=68.2%
+Val Metrics: Acc=65.8%, P=68.7%, R=90.2%, F1=78.0%
+Learning rate: 1.61e-06
+
+Epoch 69/300
+Train Loss: 2.5944, Val Loss: 1.0627
+Train Metrics: Acc=59.6%, P=70.9%, R=66.9%, F1=68.8%
+Val Metrics: Acc=67.1%, P=69.7%, R=90.2%, F1=78.6%
+Learning rate: 1.15e-06
+
+Epoch 70/300
+Train Loss: 3.1621, Val Loss: 0.8443
+Train Metrics: Acc=60.7%, P=73.9%, R=63.6%, F1=68.3%
+Val Metrics: Acc=68.4%, P=72.1%, R=86.3%, F1=78.6%
+Learning rate: 1.00e-04
+
+Epoch 71/300
+Train Loss: 2.1914, Val Loss: 2.9825
+Train Metrics: Acc=61.0%, P=75.0%, R=62.3%, F1=68.1%
+Val Metrics: Acc=60.5%, P=69.8%, R=72.5%, F1=71.2%
+Learning rate: 1.00e-04
+
+Epoch 72/300
+Train Loss: 2.3278, Val Loss: 0.1911
+Train Metrics: Acc=58.8%, P=71.4%, R=63.6%, F1=67.3%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 9.98e-05
+
+Epoch 73/300
+Train Loss: 2.2974, Val Loss: 0.2885
+Train Metrics: Acc=61.9%, P=75.9%, R=62.7%, F1=68.7%
+Val Metrics: Acc=71.1%, P=71.6%, R=94.1%, F1=81.4%
+Learning rate: 9.97e-05
+
+Epoch 74/300
+Train Loss: 2.3490, Val Loss: 0.3261
+Train Metrics: Acc=57.9%, P=72.3%, R=59.7%, F1=65.4%
+Val Metrics: Acc=69.7%, P=71.9%, R=90.2%, F1=80.0%
+Learning rate: 9.94e-05
+
+Epoch 75/300
+Train Loss: 1.9847, Val Loss: 0.4202
+Train Metrics: Acc=63.8%, P=75.7%, R=67.4%, F1=71.3%
+Val Metrics: Acc=64.5%, P=70.0%, R=82.4%, F1=75.7%
+Learning rate: 9.90e-05
+
+Epoch 76/300
+Train Loss: 2.3787, Val Loss: 1.1709
+Train Metrics: Acc=60.5%, P=71.6%, R=67.4%, F1=69.4%
+Val Metrics: Acc=61.8%, P=69.6%, R=76.5%, F1=72.9%
+Learning rate: 9.86e-05
+
+Epoch 77/300
+Train Loss: 2.6148, Val Loss: 1.4420
+Train Metrics: Acc=54.8%, P=69.0%, R=58.5%, F1=63.3%
+Val Metrics: Acc=61.8%, P=71.2%, R=72.5%, F1=71.8%
+Learning rate: 9.81e-05
+
+Epoch 78/300
+Train Loss: 2.8142, Val Loss: 1.0912
+Train Metrics: Acc=57.6%, P=71.3%, R=61.0%, F1=65.8%
+Val Metrics: Acc=65.8%, P=69.8%, R=86.3%, F1=77.2%
+Learning rate: 9.76e-05
+
+Epoch 79/300
+Train Loss: 1.8813, Val Loss: 0.6103
+Train Metrics: Acc=62.1%, P=74.8%, R=65.3%, F1=69.7%
+Val Metrics: Acc=65.8%, P=69.8%, R=86.3%, F1=77.2%
+Learning rate: 9.69e-05
+
+Epoch 80/300
+Train Loss: 1.7446, Val Loss: 0.6676
+Train Metrics: Acc=64.4%, P=75.7%, R=68.6%, F1=72.0%
+Val Metrics: Acc=64.5%, P=70.0%, R=82.4%, F1=75.7%
+Learning rate: 9.62e-05
+
+Epoch 81/300
+Train Loss: 2.5375, Val Loss: 0.7683
+Train Metrics: Acc=59.6%, P=72.7%, R=63.1%, F1=67.6%
+Val Metrics: Acc=67.1%, P=70.3%, R=88.2%, F1=78.3%
+Learning rate: 9.55e-05
+
+Epoch 82/300
+Train Loss: 1.9384, Val Loss: 1.1753
+Train Metrics: Acc=59.9%, P=71.0%, R=67.4%, F1=69.1%
+Val Metrics: Acc=61.8%, P=69.0%, R=78.4%, F1=73.4%
+Learning rate: 9.46e-05
+
+Epoch 83/300
+Train Loss: 2.1439, Val Loss: 1.3536
+Train Metrics: Acc=60.7%, P=72.8%, R=65.7%, F1=69.0%
+Val Metrics: Acc=65.8%, P=69.2%, R=88.2%, F1=77.6%
+Learning rate: 9.37e-05
+
+Epoch 84/300
+Train Loss: 2.3928, Val Loss: 1.2340
+Train Metrics: Acc=62.1%, P=72.6%, R=69.5%, F1=71.0%
+Val Metrics: Acc=61.8%, P=69.0%, R=78.4%, F1=73.4%
+Learning rate: 9.27e-05
+
+Epoch 85/300
+Train Loss: 2.5380, Val Loss: 1.3069
+Train Metrics: Acc=60.2%, P=72.3%, R=65.3%, F1=68.6%
+Val Metrics: Acc=67.1%, P=72.4%, R=82.4%, F1=77.1%
+Learning rate: 9.17e-05
+
+Epoch 86/300
+Train Loss: 1.9226, Val Loss: 0.4378
+Train Metrics: Acc=63.0%, P=75.1%, R=66.5%, F1=70.6%
+Val Metrics: Acc=63.2%, P=70.9%, R=76.5%, F1=73.6%
+Learning rate: 9.05e-05
+
+Epoch 87/300
+Train Loss: 2.9217, Val Loss: 0.9495
+Train Metrics: Acc=56.5%, P=69.5%, R=61.9%, F1=65.5%
+Val Metrics: Acc=68.4%, P=70.8%, R=90.2%, F1=79.3%
+Learning rate: 8.94e-05
+
+Epoch 88/300
+Train Loss: 2.3604, Val Loss: 1.4522
+Train Metrics: Acc=57.9%, P=71.4%, R=61.4%, F1=66.1%
+Val Metrics: Acc=61.8%, P=69.6%, R=76.5%, F1=72.9%
+Learning rate: 8.81e-05
+
+Epoch 89/300
+Train Loss: 2.0799, Val Loss: 0.8299
+Train Metrics: Acc=57.3%, P=70.7%, R=61.4%, F1=65.8%
+Val Metrics: Acc=61.8%, P=69.6%, R=76.5%, F1=72.9%
+Learning rate: 8.68e-05
+
+Epoch 90/300
+Train Loss: 1.9973, Val Loss: 0.5223
+Train Metrics: Acc=58.8%, P=73.2%, R=60.2%, F1=66.0%
+Val Metrics: Acc=61.8%, P=68.3%, R=80.4%, F1=73.9%
+Learning rate: 8.55e-05
+
+Epoch 91/300
+Train Loss: 1.7262, Val Loss: 0.2758
+Train Metrics: Acc=65.8%, P=75.3%, R=72.5%, F1=73.9%
+Val Metrics: Acc=64.5%, P=68.2%, R=88.2%, F1=76.9%
+Learning rate: 8.41e-05
+
+Epoch 92/300
+Train Loss: 2.7578, Val Loss: 1.1499
+Train Metrics: Acc=58.2%, P=70.6%, R=64.0%, F1=67.1%
+Val Metrics: Acc=59.2%, P=66.7%, R=78.4%, F1=72.1%
+Learning rate: 8.26e-05
+
+Epoch 93/300
+Train Loss: 2.2064, Val Loss: 1.5396
+Train Metrics: Acc=61.6%, P=73.1%, R=66.9%, F1=69.9%
+Val Metrics: Acc=61.8%, P=69.0%, R=78.4%, F1=73.4%
+Learning rate: 8.11e-05
+
+Epoch 94/300
+Train Loss: 2.5061, Val Loss: 1.2403
+Train Metrics: Acc=62.1%, P=73.8%, R=66.9%, F1=70.2%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 7.96e-05
+
+Epoch 95/300
+Train Loss: 1.9719, Val Loss: 0.8855
+Train Metrics: Acc=59.0%, P=70.6%, R=66.1%, F1=68.3%
+Val Metrics: Acc=67.1%, P=71.0%, R=86.3%, F1=77.9%
+Learning rate: 7.80e-05
+
+Epoch 96/300
+Train Loss: 1.9721, Val Loss: 1.5332
+Train Metrics: Acc=60.5%, P=72.2%, R=66.1%, F1=69.0%
+Val Metrics: Acc=60.5%, P=68.4%, R=76.5%, F1=72.2%
+Learning rate: 7.64e-05
+
+Epoch 97/300
+Train Loss: 2.0180, Val Loss: 0.7346
+Train Metrics: Acc=59.6%, P=70.5%, R=67.8%, F1=69.1%
+Val Metrics: Acc=60.5%, P=67.8%, R=78.4%, F1=72.7%
+Learning rate: 7.47e-05
+
+Epoch 98/300
+Train Loss: 2.2868, Val Loss: 0.6565
+Train Metrics: Acc=64.1%, P=73.6%, R=72.0%, F1=72.8%
+Val Metrics: Acc=63.2%, P=68.9%, R=82.4%, F1=75.0%
+Learning rate: 7.30e-05
+
+Epoch 99/300
+Train Loss: 2.0418, Val Loss: 0.8745
+Train Metrics: Acc=63.0%, P=73.8%, R=69.1%, F1=71.3%
+Val Metrics: Acc=67.1%, P=71.7%, R=84.3%, F1=77.5%
+Learning rate: 7.12e-05
+
+Epoch 100/300
+Train Loss: 1.8870, Val Loss: 0.8871
+Train Metrics: Acc=60.5%, P=72.4%, R=65.7%, F1=68.9%
+Val Metrics: Acc=63.2%, P=69.5%, R=80.4%, F1=74.5%
+Learning rate: 6.94e-05
+
+Epoch 101/300
+Train Loss: 1.6960, Val Loss: 0.8791
+Train Metrics: Acc=63.8%, P=73.7%, R=71.2%, F1=72.4%
+Val Metrics: Acc=63.2%, P=68.9%, R=82.4%, F1=75.0%
+Learning rate: 6.76e-05
+
+Epoch 102/300
+Train Loss: 2.3904, Val Loss: 1.0534
+Train Metrics: Acc=61.6%, P=71.7%, R=69.9%, F1=70.8%
+Val Metrics: Acc=67.1%, P=69.1%, R=92.2%, F1=79.0%
+Learning rate: 6.58e-05
+
+Epoch 103/300
+Train Loss: 1.3166, Val Loss: 0.4718
+Train Metrics: Acc=63.0%, P=72.0%, R=72.9%, F1=72.4%
+Val Metrics: Acc=67.1%, P=70.3%, R=88.2%, F1=78.3%
+Learning rate: 6.39e-05
+
+Epoch 104/300
+Train Loss: 1.8137, Val Loss: 1.3220
+Train Metrics: Acc=62.1%, P=71.2%, R=72.5%, F1=71.8%
+Val Metrics: Acc=63.2%, P=69.5%, R=80.4%, F1=74.5%
+Learning rate: 6.21e-05
+
+Epoch 105/300
+Train Loss: 1.8269, Val Loss: 1.2850
+Train Metrics: Acc=62.4%, P=72.9%, R=69.5%, F1=71.1%
+Val Metrics: Acc=64.5%, P=69.4%, R=84.3%, F1=76.1%
+Learning rate: 6.02e-05
+
+Epoch 106/300
+Train Loss: 1.6781, Val Loss: 1.2736
+Train Metrics: Acc=61.3%, P=72.0%, R=68.6%, F1=70.3%
+Val Metrics: Acc=57.9%, P=67.9%, R=70.6%, F1=69.2%
+Learning rate: 5.82e-05
+
+Epoch 107/300
+Train Loss: 2.1433, Val Loss: 1.0208
+Train Metrics: Acc=60.2%, P=72.3%, R=65.3%, F1=68.6%
+Val Metrics: Acc=64.5%, P=68.7%, R=86.3%, F1=76.5%
+Learning rate: 5.63e-05
+
+Epoch 108/300
+Train Loss: 1.9136, Val Loss: 0.9395
+Train Metrics: Acc=60.5%, P=73.8%, R=63.1%, F1=68.0%
+Val Metrics: Acc=67.1%, P=69.1%, R=92.2%, F1=79.0%
+Learning rate: 5.44e-05
+
+Epoch 109/300
+Train Loss: 1.9940, Val Loss: 0.8552
+Train Metrics: Acc=63.0%, P=73.5%, R=69.5%, F1=71.5%
+Val Metrics: Acc=63.2%, P=68.9%, R=82.4%, F1=75.0%
+Learning rate: 5.24e-05
+
+Epoch 110/300
+Train Loss: 1.6612, Val Loss: 0.4422
+Train Metrics: Acc=65.3%, P=77.0%, R=68.2%, F1=72.4%
+Val Metrics: Acc=68.4%, P=69.6%, R=94.1%, F1=80.0%
+Learning rate: 5.05e-05
+
+Epoch 111/300
+Train Loss: 1.8574, Val Loss: 1.2608
+Train Metrics: Acc=63.0%, P=74.6%, R=67.4%, F1=70.8%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 4.86e-05
+
+Epoch 112/300
+Train Loss: 1.8019, Val Loss: 0.7874
+Train Metrics: Acc=63.3%, P=72.6%, R=72.0%, F1=72.3%
+Val Metrics: Acc=68.4%, P=70.1%, R=92.2%, F1=79.7%
+Learning rate: 4.66e-05
+
+Epoch 113/300
+Train Loss: 1.8506, Val Loss: 1.2584
+Train Metrics: Acc=63.0%, P=74.2%, R=68.2%, F1=71.1%
+Val Metrics: Acc=69.7%, P=71.9%, R=90.2%, F1=80.0%
+Learning rate: 4.47e-05
+
+Epoch 114/300
+Train Loss: 1.2680, Val Loss: 0.8459
+Train Metrics: Acc=69.2%, P=80.1%, R=71.6%, F1=75.6%
+Val Metrics: Acc=68.4%, P=70.1%, R=92.2%, F1=79.7%
+Learning rate: 4.28e-05
+
+Epoch 115/300
+Train Loss: 1.7547, Val Loss: 0.9069
+Train Metrics: Acc=66.7%, P=78.6%, R=68.6%, F1=73.3%
+Val Metrics: Acc=69.7%, P=70.6%, R=94.1%, F1=80.7%
+Learning rate: 4.08e-05
+
+Epoch 116/300
+Train Loss: 1.7706, Val Loss: 1.6126
+Train Metrics: Acc=67.5%, P=77.6%, R=72.0%, F1=74.7%
+Val Metrics: Acc=68.4%, P=71.4%, R=88.2%, F1=78.9%
+Learning rate: 3.89e-05
+
+Epoch 117/300
+Train Loss: 1.3680, Val Loss: 0.9435
+Train Metrics: Acc=65.8%, P=73.9%, R=75.4%, F1=74.6%
+Val Metrics: Acc=64.5%, P=68.7%, R=86.3%, F1=76.5%
+Learning rate: 3.71e-05
+
+Epoch 118/300
+Train Loss: 1.8406, Val Loss: 2.0931
+Train Metrics: Acc=63.3%, P=73.7%, R=69.9%, F1=71.7%
+Val Metrics: Acc=63.2%, P=70.9%, R=76.5%, F1=73.6%
+Learning rate: 3.52e-05
+
+Epoch 119/300
+Train Loss: 1.7536, Val Loss: 2.1757
+Train Metrics: Acc=68.9%, P=76.5%, R=77.1%, F1=76.8%
+Val Metrics: Acc=64.5%, P=70.0%, R=82.4%, F1=75.7%
+Learning rate: 3.34e-05
+
+Epoch 120/300
+Train Loss: 1.7650, Val Loss: 1.5405
+Train Metrics: Acc=68.6%, P=78.8%, R=72.5%, F1=75.5%
+Val Metrics: Acc=64.5%, P=70.0%, R=82.4%, F1=75.7%
+Learning rate: 3.16e-05
+
+Epoch 121/300
+Train Loss: 1.6680, Val Loss: 1.1938
+Train Metrics: Acc=66.4%, P=77.2%, R=70.3%, F1=73.6%
+Val Metrics: Acc=63.2%, P=68.3%, R=84.3%, F1=75.4%
+Learning rate: 2.98e-05
+
+Epoch 122/300
+Train Loss: 2.0415, Val Loss: 1.4090
+Train Metrics: Acc=66.9%, P=75.1%, R=75.4%, F1=75.3%
+Val Metrics: Acc=65.8%, P=69.2%, R=88.2%, F1=77.6%
+Learning rate: 2.80e-05
+
+Epoch 123/300
+Train Loss: 1.6562, Val Loss: 1.4308
+Train Metrics: Acc=69.5%, P=77.8%, R=75.8%, F1=76.8%
+Val Metrics: Acc=64.5%, P=69.4%, R=84.3%, F1=76.1%
+Learning rate: 2.63e-05
+
+Epoch 124/300
+Train Loss: 1.4722, Val Loss: 0.9114
+Train Metrics: Acc=64.4%, P=74.1%, R=71.6%, F1=72.8%
+Val Metrics: Acc=61.8%, P=67.2%, R=84.3%, F1=74.8%
+Learning rate: 2.46e-05
+
+Epoch 125/300
+Train Loss: 1.3690, Val Loss: 0.9281
+Train Metrics: Acc=68.4%, P=76.1%, R=76.7%, F1=76.4%
+Val Metrics: Acc=68.4%, P=69.6%, R=94.1%, F1=80.0%
+Learning rate: 2.30e-05
+
+Epoch 126/300
+Train Loss: 1.1517, Val Loss: 0.7464
+Train Metrics: Acc=65.8%, P=73.7%, R=75.8%, F1=74.7%
+Val Metrics: Acc=68.4%, P=69.6%, R=94.1%, F1=80.0%
+Learning rate: 2.14e-05
+
+Epoch 127/300
+Train Loss: 1.4736, Val Loss: 1.3432
+Train Metrics: Acc=64.4%, P=74.6%, R=70.8%, F1=72.6%
+Val Metrics: Acc=65.8%, P=69.8%, R=86.3%, F1=77.2%
+Learning rate: 1.99e-05
+
+Epoch 128/300
+Train Loss: 1.7706, Val Loss: 1.4384
+Train Metrics: Acc=67.8%, P=77.5%, R=72.9%, F1=75.1%
+Val Metrics: Acc=71.1%, P=71.6%, R=94.1%, F1=81.4%
+Learning rate: 1.84e-05
+
+Epoch 129/300
+Train Loss: 1.5802, Val Loss: 1.6565
+Train Metrics: Acc=66.4%, P=74.9%, R=74.6%, F1=74.7%
+Val Metrics: Acc=67.1%, P=70.3%, R=88.2%, F1=78.3%
+Learning rate: 1.69e-05
+
+Epoch 130/300
+Train Loss: 1.6948, Val Loss: 1.3618
+Train Metrics: Acc=66.1%, P=75.7%, R=72.5%, F1=74.0%
+Val Metrics: Acc=69.7%, P=70.6%, R=94.1%, F1=80.7%
+Learning rate: 1.55e-05
+
+Epoch 131/300
+Train Loss: 1.1972, Val Loss: 0.9290
+Train Metrics: Acc=68.6%, P=75.9%, R=77.5%, F1=76.7%
+Val Metrics: Acc=67.1%, P=69.7%, R=90.2%, F1=78.6%
+Learning rate: 1.42e-05
+
+Epoch 132/300
+Train Loss: 1.2776, Val Loss: 1.1526
+Train Metrics: Acc=68.6%, P=76.4%, R=76.7%, F1=76.5%
+Val Metrics: Acc=68.4%, P=70.1%, R=92.2%, F1=79.7%
+Learning rate: 1.29e-05
+
+Epoch 133/300
+Train Loss: 1.6061, Val Loss: 1.3852
+Train Metrics: Acc=63.3%, P=74.1%, R=69.1%, F1=71.5%
+Val Metrics: Acc=68.4%, P=70.1%, R=92.2%, F1=79.7%
+Learning rate: 1.16e-05
+
+Epoch 134/300
+Train Loss: 1.4341, Val Loss: 1.5781
+Train Metrics: Acc=70.9%, P=77.8%, R=78.8%, F1=78.3%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 1.05e-05
+
+Epoch 135/300
+Train Loss: 1.6921, Val Loss: 1.2118
+Train Metrics: Acc=69.5%, P=77.8%, R=75.8%, F1=76.8%
+Val Metrics: Acc=67.1%, P=70.3%, R=88.2%, F1=78.3%
+Learning rate: 9.34e-06
+
+Epoch 136/300
+Train Loss: 1.6114, Val Loss: 1.4329
+Train Metrics: Acc=66.9%, P=77.4%, R=71.2%, F1=74.2%
+Val Metrics: Acc=64.5%, P=68.7%, R=86.3%, F1=76.5%
+Learning rate: 8.29e-06
+
+Epoch 137/300
+Train Loss: 1.4302, Val Loss: 1.3378
+Train Metrics: Acc=65.0%, P=75.0%, R=71.2%, F1=73.0%
+Val Metrics: Acc=67.1%, P=70.3%, R=88.2%, F1=78.3%
+Learning rate: 7.31e-06
+
+Epoch 138/300
+Train Loss: 1.5917, Val Loss: 1.1957
+Train Metrics: Acc=66.9%, P=75.3%, R=75.0%, F1=75.2%
+Val Metrics: Acc=67.1%, P=70.3%, R=88.2%, F1=78.3%
+Learning rate: 6.40e-06
+
+Epoch 139/300
+Train Loss: 1.8632, Val Loss: 1.2968
+Train Metrics: Acc=66.4%, P=76.7%, R=71.2%, F1=73.8%
+Val Metrics: Acc=64.5%, P=68.7%, R=86.3%, F1=76.5%
+Learning rate: 5.55e-06
+
+Epoch 140/300
+Train Loss: 1.5732, Val Loss: 1.3288
+Train Metrics: Acc=67.2%, P=78.0%, R=70.8%, F1=74.2%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 4.77e-06
+
+Epoch 141/300
+Train Loss: 1.6663, Val Loss: 1.1135
+Train Metrics: Acc=64.1%, P=72.6%, R=74.2%, F1=73.4%
+Val Metrics: Acc=69.7%, P=70.6%, R=94.1%, F1=80.7%
+Learning rate: 4.06e-06
+
+Epoch 142/300
+Train Loss: 1.6700, Val Loss: 1.2086
+Train Metrics: Acc=63.0%, P=75.1%, R=66.5%, F1=70.6%
+Val Metrics: Acc=71.1%, P=71.6%, R=94.1%, F1=81.4%
+Learning rate: 3.42e-06
+
+Epoch 143/300
+Train Loss: 1.4427, Val Loss: 1.2045
+Train Metrics: Acc=68.1%, P=76.6%, R=75.0%, F1=75.8%
+Val Metrics: Acc=71.1%, P=71.6%, R=94.1%, F1=81.4%
+Learning rate: 2.86e-06
+
+Epoch 144/300
+Train Loss: 1.3143, Val Loss: 1.3393
+Train Metrics: Acc=68.9%, P=76.7%, R=76.7%, F1=76.7%
+Val Metrics: Acc=69.7%, P=70.6%, R=94.1%, F1=80.7%
+Learning rate: 2.37e-06
+
+Epoch 145/300
+Train Loss: 1.9651, Val Loss: 1.3772
+Train Metrics: Acc=65.0%, P=75.7%, R=69.9%, F1=72.7%
+Val Metrics: Acc=65.8%, P=69.8%, R=86.3%, F1=77.2%
+Learning rate: 1.95e-06
+
+Epoch 146/300
+Train Loss: 1.7675, Val Loss: 1.4798
+Train Metrics: Acc=70.6%, P=79.7%, R=75.0%, F1=77.3%
+Val Metrics: Acc=65.8%, P=69.2%, R=88.2%, F1=77.6%
+Learning rate: 1.61e-06
+
+Epoch 147/300
+Train Loss: 1.3118, Val Loss: 1.7474
+Train Metrics: Acc=70.3%, P=79.1%, R=75.4%, F1=77.2%
+Val Metrics: Acc=67.1%, P=71.0%, R=86.3%, F1=77.9%
+Learning rate: 1.34e-06
+
+Epoch 148/300
+Train Loss: 1.8185, Val Loss: 1.8795
+Train Metrics: Acc=72.3%, P=79.7%, R=78.4%, F1=79.1%
+Val Metrics: Acc=68.4%, P=72.1%, R=86.3%, F1=78.6%
+Learning rate: 1.15e-06
+
+Epoch 149/300
+Train Loss: 1.7167, Val Loss: 1.6503
+Train Metrics: Acc=66.9%, P=74.5%, R=76.7%, F1=75.6%
+Val Metrics: Acc=71.1%, P=72.3%, R=92.2%, F1=81.0%
+Learning rate: 1.04e-06
+
+Epoch 150/300
+Train Loss: 1.4203, Val Loss: 1.6870
+Train Metrics: Acc=64.1%, P=74.9%, R=69.5%, F1=72.1%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 1.00e-04
+
+Epoch 151/300
+Train Loss: 1.6634, Val Loss: 1.0261
+Train Metrics: Acc=63.6%, P=73.0%, R=72.0%, F1=72.5%
+Val Metrics: Acc=65.8%, P=69.8%, R=86.3%, F1=77.2%
+Learning rate: 1.00e-04
+
+Epoch 152/300
+Train Loss: 1.8079, Val Loss: 2.6063
+Train Metrics: Acc=67.2%, P=76.8%, R=72.9%, F1=74.8%
+Val Metrics: Acc=56.6%, P=68.0%, R=66.7%, F1=67.3%
+Learning rate: 1.00e-04
+
+Epoch 153/300
+Train Loss: 2.2917, Val Loss: 1.7041
+Train Metrics: Acc=61.0%, P=72.1%, R=67.8%, F1=69.9%
+Val Metrics: Acc=72.4%, P=73.4%, R=92.2%, F1=81.7%
+Learning rate: 9.99e-05
+
+Epoch 154/300
+Train Loss: 2.1958, Val Loss: 3.1642
+Train Metrics: Acc=64.7%, P=76.3%, R=68.2%, F1=72.0%
+Val Metrics: Acc=59.2%, P=75.0%, R=58.8%, F1=65.9%
+Learning rate: 9.98e-05
+
+Epoch 155/300
+Train Loss: 2.2192, Val Loss: 2.6597
+Train Metrics: Acc=65.0%, P=75.5%, R=70.3%, F1=72.8%
+Val Metrics: Acc=59.2%, P=69.2%, R=70.6%, F1=69.9%
+Learning rate: 9.98e-05
+
+Epoch 156/300
+Train Loss: 1.8847, Val Loss: 1.6507
+Train Metrics: Acc=65.5%, P=75.2%, R=72.0%, F1=73.6%
+Val Metrics: Acc=63.2%, P=67.7%, R=86.3%, F1=75.9%
+Learning rate: 9.97e-05
+
+Epoch 157/300
+Train Loss: 1.3046, Val Loss: 1.7076
+Train Metrics: Acc=67.8%, P=75.2%, R=77.1%, F1=76.2%
+Val Metrics: Acc=65.8%, P=69.8%, R=86.3%, F1=77.2%
+Learning rate: 9.95e-05
+
+Epoch 158/300
+Train Loss: 1.8285, Val Loss: 1.0158
+Train Metrics: Acc=64.1%, P=74.7%, R=69.9%, F1=72.2%
+Val Metrics: Acc=64.5%, P=68.7%, R=86.3%, F1=76.5%
+Learning rate: 9.94e-05
+
+Epoch 159/300
+Train Loss: 2.1143, Val Loss: 1.1207
+Train Metrics: Acc=60.7%, P=70.8%, R=69.9%, F1=70.4%
+Val Metrics: Acc=63.2%, P=67.7%, R=86.3%, F1=75.9%
+Learning rate: 9.92e-05
+
+Epoch 160/300
+Train Loss: 2.1977, Val Loss: 1.8774
+Train Metrics: Acc=64.7%, P=74.9%, R=70.8%, F1=72.8%
+Val Metrics: Acc=61.8%, P=69.0%, R=78.4%, F1=73.4%
+Learning rate: 9.90e-05
+
+Epoch 161/300
+Train Loss: 1.8397, Val Loss: 2.6498
+Train Metrics: Acc=65.8%, P=73.5%, R=76.3%, F1=74.8%
+Val Metrics: Acc=60.5%, P=68.4%, R=76.5%, F1=72.2%
+Learning rate: 9.88e-05
+
+Epoch 162/300
+Train Loss: 2.0316, Val Loss: 1.1710
+Train Metrics: Acc=65.8%, P=73.5%, R=76.3%, F1=74.8%
+Val Metrics: Acc=71.1%, P=71.6%, R=94.1%, F1=81.4%
+Learning rate: 9.86e-05
+
+Epoch 163/300
+Train Loss: 2.0952, Val Loss: 2.1679
+Train Metrics: Acc=63.8%, P=72.3%, R=74.2%, F1=73.2%
+Val Metrics: Acc=68.4%, P=71.4%, R=88.2%, F1=78.9%
+Learning rate: 9.84e-05
+
+Epoch 164/300
+Train Loss: 1.6750, Val Loss: 3.0045
+Train Metrics: Acc=65.3%, P=74.7%, R=72.5%, F1=73.5%
+Val Metrics: Acc=63.2%, P=71.7%, R=74.5%, F1=73.1%
+Learning rate: 9.81e-05
+
+Epoch 165/300
+Train Loss: 1.5845, Val Loss: 1.3128
+Train Metrics: Acc=64.1%, P=72.8%, R=73.7%, F1=73.3%
+Val Metrics: Acc=64.5%, P=69.4%, R=84.3%, F1=76.1%
+Learning rate: 9.79e-05
+
+Epoch 166/300
+Train Loss: 1.4481, Val Loss: 1.1228
+Train Metrics: Acc=64.1%, P=72.1%, R=75.4%, F1=73.7%
+Val Metrics: Acc=64.5%, P=68.7%, R=86.3%, F1=76.5%
+Learning rate: 9.76e-05
+
+Epoch 167/300
+Train Loss: 2.2739, Val Loss: 2.2263
+Train Metrics: Acc=64.4%, P=73.7%, R=72.5%, F1=73.1%
+Val Metrics: Acc=60.5%, P=68.4%, R=76.5%, F1=72.2%
+Learning rate: 9.73e-05
+
+Epoch 168/300
+Train Loss: 1.7932, Val Loss: 2.4365
+Train Metrics: Acc=68.6%, P=75.3%, R=78.8%, F1=77.0%
+Val Metrics: Acc=61.8%, P=68.3%, R=80.4%, F1=73.9%
+Learning rate: 9.69e-05
+
+Epoch 169/300
+Train Loss: 1.8495, Val Loss: 2.5239
+Train Metrics: Acc=62.7%, P=72.8%, R=70.3%, F1=71.6%
+Val Metrics: Acc=65.8%, P=74.5%, R=74.5%, F1=74.5%
+Learning rate: 9.66e-05
+
+Epoch 170/300
+Train Loss: 1.2986, Val Loss: 2.4529
+Train Metrics: Acc=64.7%, P=74.0%, R=72.5%, F1=73.2%
+Val Metrics: Acc=57.9%, P=75.7%, R=54.9%, F1=63.6%
+Learning rate: 9.62e-05
+
+Epoch 171/300
+Train Loss: 1.3667, Val Loss: 1.5405
+Train Metrics: Acc=63.6%, P=74.2%, R=69.5%, F1=71.8%
+Val Metrics: Acc=68.4%, P=70.1%, R=92.2%, F1=79.7%
+Learning rate: 9.59e-05
+
+Epoch 172/300
+Train Loss: 1.1961, Val Loss: 1.5829
+Train Metrics: Acc=68.6%, P=76.4%, R=76.7%, F1=76.5%
+Val Metrics: Acc=67.1%, P=70.3%, R=88.2%, F1=78.3%
+Learning rate: 9.55e-05
+
+Epoch 173/300
+Train Loss: 2.6871, Val Loss: 2.4677
+Train Metrics: Acc=63.8%, P=72.7%, R=73.3%, F1=73.0%
+Val Metrics: Acc=68.4%, P=70.1%, R=92.2%, F1=79.7%
+Learning rate: 9.50e-05
+
+Epoch 174/300
+Train Loss: 1.6781, Val Loss: 1.7180
+Train Metrics: Acc=65.8%, P=74.7%, R=73.7%, F1=74.2%
+Val Metrics: Acc=68.4%, P=71.4%, R=88.2%, F1=78.9%
+Learning rate: 9.46e-05
+
+Epoch 175/300
+Train Loss: 1.3385, Val Loss: 1.2028
+Train Metrics: Acc=68.1%, P=76.9%, R=74.6%, F1=75.7%
+Val Metrics: Acc=67.1%, P=69.1%, R=92.2%, F1=79.0%
+Learning rate: 9.42e-05
+
+Epoch 176/300
+Train Loss: 1.9422, Val Loss: 0.5456
+Train Metrics: Acc=66.7%, P=73.6%, R=78.0%, F1=75.7%
+Val Metrics: Acc=68.4%, P=69.6%, R=94.1%, F1=80.0%
+Learning rate: 9.37e-05
+
+Epoch 177/300
+Train Loss: 1.7427, Val Loss: 0.6791
+Train Metrics: Acc=64.7%, P=72.3%, R=76.3%, F1=74.2%
+Val Metrics: Acc=71.1%, P=71.0%, R=96.1%, F1=81.7%
+Learning rate: 9.32e-05
+
+Epoch 178/300
+Train Loss: 2.4159, Val Loss: 0.9519
+Train Metrics: Acc=66.1%, P=73.4%, R=77.1%, F1=75.2%
+Val Metrics: Acc=68.4%, P=71.4%, R=88.2%, F1=78.9%
+Learning rate: 9.27e-05
+
+Epoch 179/300
+Train Loss: 1.9252, Val Loss: 3.4756
+Train Metrics: Acc=60.7%, P=70.6%, R=70.3%, F1=70.5%
+Val Metrics: Acc=63.2%, P=74.5%, R=68.6%, F1=71.4%
+Learning rate: 9.22e-05
+
+Epoch 180/300
+Train Loss: 1.3813, Val Loss: 1.5194
+Train Metrics: Acc=68.4%, P=76.1%, R=76.7%, F1=76.4%
+Val Metrics: Acc=59.2%, P=69.2%, R=70.6%, F1=69.9%
+Learning rate: 9.17e-05
+
+Epoch 181/300
+Train Loss: 1.5754, Val Loss: 1.2840
+Train Metrics: Acc=65.3%, P=75.1%, R=71.6%, F1=73.3%
+Val Metrics: Acc=71.1%, P=73.0%, R=90.2%, F1=80.7%
+Learning rate: 9.11e-05
+
+Epoch 182/300
+Train Loss: 1.7860, Val Loss: 0.9779
+Train Metrics: Acc=63.3%, P=70.9%, R=76.3%, F1=73.5%
+Val Metrics: Acc=68.4%, P=70.1%, R=92.2%, F1=79.7%
+Learning rate: 9.05e-05
+
+Epoch 183/300
+Train Loss: 1.3178, Val Loss: 1.2175
+Train Metrics: Acc=67.8%, P=74.8%, R=78.0%, F1=76.3%
+Val Metrics: Acc=69.7%, P=73.3%, R=86.3%, F1=79.3%
+Learning rate: 9.00e-05
+
+Epoch 184/300
+Train Loss: 1.7331, Val Loss: 0.8178
+Train Metrics: Acc=64.1%, P=73.0%, R=73.3%, F1=73.2%
+Val Metrics: Acc=67.1%, P=69.1%, R=92.2%, F1=79.0%
+Learning rate: 8.94e-05
+
+Epoch 185/300
+Train Loss: 1.5594, Val Loss: 0.9214
+Train Metrics: Acc=63.3%, P=72.3%, R=72.9%, F1=72.6%
+Val Metrics: Acc=68.4%, P=69.6%, R=94.1%, F1=80.0%
+Learning rate: 8.88e-05
+
+Epoch 186/300
+Train Loss: 1.7282, Val Loss: 1.0092
+Train Metrics: Acc=64.7%, P=73.0%, R=74.6%, F1=73.8%
+Val Metrics: Acc=71.1%, P=71.6%, R=94.1%, F1=81.4%
+Learning rate: 8.81e-05
+
+Epoch 187/300
+Train Loss: 1.4453, Val Loss: 1.4385
+Train Metrics: Acc=63.3%, P=71.7%, R=74.2%, F1=72.9%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 8.75e-05
+
+Epoch 188/300
+Train Loss: 2.2190, Val Loss: 1.4673
+Train Metrics: Acc=68.9%, P=75.8%, R=78.4%, F1=77.1%
+Val Metrics: Acc=69.7%, P=71.9%, R=90.2%, F1=80.0%
+Learning rate: 8.68e-05
+
+Epoch 189/300
+Train Loss: 1.8451, Val Loss: 1.0535
+Train Metrics: Acc=64.4%, P=72.5%, R=75.0%, F1=73.7%
+Val Metrics: Acc=67.1%, P=69.1%, R=92.2%, F1=79.0%
+Learning rate: 8.62e-05
+
+Epoch 190/300
+Train Loss: 1.8593, Val Loss: 1.2907
+Train Metrics: Acc=68.6%, P=73.9%, R=81.8%, F1=77.7%
+Val Metrics: Acc=71.1%, P=71.6%, R=94.1%, F1=81.4%
+Learning rate: 8.55e-05
+
+Epoch 191/300
+Train Loss: 1.6723, Val Loss: 1.1271
+Train Metrics: Acc=68.1%, P=75.9%, R=76.3%, F1=76.1%
+Val Metrics: Acc=69.7%, P=70.6%, R=94.1%, F1=80.7%
+Learning rate: 8.48e-05
+
+Epoch 192/300
+Train Loss: 1.7211, Val Loss: 2.8892
+Train Metrics: Acc=66.9%, P=75.1%, R=75.4%, F1=75.3%
+Val Metrics: Acc=64.5%, P=73.1%, R=74.5%, F1=73.8%
+Learning rate: 8.41e-05
+
+Epoch 193/300
+Train Loss: 1.9033, Val Loss: 1.4914
+Train Metrics: Acc=64.4%, P=72.9%, R=74.2%, F1=73.5%
+Val Metrics: Acc=67.1%, P=70.3%, R=88.2%, F1=78.3%
+Learning rate: 8.34e-05
+
+Epoch 194/300
+Train Loss: 1.8578, Val Loss: 0.8006
+Train Metrics: Acc=61.0%, P=70.2%, R=72.0%, F1=71.1%
+Val Metrics: Acc=69.7%, P=70.0%, R=96.1%, F1=81.0%
+Learning rate: 8.26e-05
+
+Epoch 195/300
+Train Loss: 1.3360, Val Loss: 0.8537
+Train Metrics: Acc=67.2%, P=73.4%, R=79.7%, F1=76.4%
+Val Metrics: Acc=68.4%, P=69.6%, R=94.1%, F1=80.0%
+Learning rate: 8.19e-05
+
+Epoch 196/300
+Train Loss: 1.5063, Val Loss: 1.0457
+Train Metrics: Acc=68.9%, P=76.9%, R=76.3%, F1=76.6%
+Val Metrics: Acc=72.4%, P=72.7%, R=94.1%, F1=82.1%
+Learning rate: 8.11e-05
+
+Epoch 197/300
+Train Loss: 1.6826, Val Loss: 1.2527
+Train Metrics: Acc=66.4%, P=74.3%, R=75.8%, F1=75.1%
+Val Metrics: Acc=71.1%, P=71.6%, R=94.1%, F1=81.4%
+Learning rate: 8.04e-05
+
+Epoch 198/300
+Train Loss: 1.8678, Val Loss: 0.9888
+Train Metrics: Acc=69.2%, P=76.8%, R=77.1%, F1=77.0%
+Val Metrics: Acc=69.7%, P=70.6%, R=94.1%, F1=80.7%
+Learning rate: 7.96e-05
+
+Epoch 199/300
+Train Loss: 1.6512, Val Loss: 1.2999
+Train Metrics: Acc=63.6%, P=73.0%, R=72.0%, F1=72.5%
+Val Metrics: Acc=71.1%, P=71.6%, R=94.1%, F1=81.4%
+Learning rate: 7.88e-05
+
+Epoch 200/300
+Train Loss: 1.2366, Val Loss: 1.8645
+Train Metrics: Acc=65.5%, P=73.7%, R=75.0%, F1=74.4%
+Val Metrics: Acc=65.8%, P=80.5%, R=64.7%, F1=71.7%
+Learning rate: 7.80e-05
+
+Epoch 201/300
+Train Loss: 1.5596, Val Loss: 1.1157
+Train Metrics: Acc=71.8%, P=78.3%, R=79.7%, F1=79.0%
+Val Metrics: Acc=72.4%, P=72.1%, R=96.1%, F1=82.4%
+Learning rate: 7.72e-05
+
+Epoch 202/300
+Train Loss: 1.3427, Val Loss: 1.8149
+Train Metrics: Acc=70.3%, P=76.3%, R=80.5%, F1=78.4%
+Val Metrics: Acc=64.5%, P=76.1%, R=68.6%, F1=72.2%
+Learning rate: 7.64e-05
+
+Epoch 203/300
+Train Loss: 1.6194, Val Loss: 1.0012
+Train Metrics: Acc=65.5%, P=75.9%, R=70.8%, F1=73.2%
+Val Metrics: Acc=67.1%, P=69.7%, R=90.2%, F1=78.6%
+Learning rate: 7.55e-05
+
+Epoch 204/300
+Train Loss: 1.3845, Val Loss: 0.5160
+Train Metrics: Acc=66.1%, P=73.2%, R=77.5%, F1=75.3%
+Val Metrics: Acc=71.1%, P=71.0%, R=96.1%, F1=81.7%
+Learning rate: 7.47e-05
+
+Epoch 205/300
+Train Loss: 1.4104, Val Loss: 0.9355
+Train Metrics: Acc=68.1%, P=74.7%, R=78.8%, F1=76.7%
+Val Metrics: Acc=69.7%, P=70.6%, R=94.1%, F1=80.7%
+Learning rate: 7.38e-05
+
+Epoch 206/300
+Train Loss: 1.3628, Val Loss: 1.5751
+Train Metrics: Acc=65.0%, P=75.0%, R=71.2%, F1=73.0%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 7.30e-05
+
+Epoch 207/300
+Train Loss: 1.5450, Val Loss: 1.2628
+Train Metrics: Acc=70.3%, P=77.9%, R=77.5%, F1=77.7%
+Val Metrics: Acc=68.4%, P=70.1%, R=92.2%, F1=79.7%
+Learning rate: 7.21e-05
+
+Epoch 208/300
+Train Loss: 2.0100, Val Loss: 0.3752
+Train Metrics: Acc=65.5%, P=73.0%, R=76.7%, F1=74.8%
+Val Metrics: Acc=71.1%, P=71.0%, R=96.1%, F1=81.7%
+Learning rate: 7.12e-05
+
+Epoch 209/300
+Train Loss: 1.6446, Val Loss: 0.1902
+Train Metrics: Acc=67.5%, P=74.1%, R=78.8%, F1=76.4%
+Val Metrics: Acc=72.4%, P=71.4%, R=98.0%, F1=82.6%
+Learning rate: 7.03e-05
+
+Epoch 210/300
+Train Loss: 2.7793, Val Loss: 0.7490
+Train Metrics: Acc=66.4%, P=75.1%, R=74.2%, F1=74.6%
+Val Metrics: Acc=71.1%, P=72.3%, R=92.2%, F1=81.0%
+Learning rate: 6.94e-05
+
+Epoch 211/300
+Train Loss: 1.2995, Val Loss: 1.2712
+Train Metrics: Acc=67.8%, P=73.5%, R=80.9%, F1=77.0%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 6.85e-05
+
+Epoch 212/300
+Train Loss: 1.3769, Val Loss: 1.8266
+Train Metrics: Acc=70.9%, P=76.5%, R=81.4%, F1=78.9%
+Val Metrics: Acc=68.4%, P=73.7%, R=82.4%, F1=77.8%
+Learning rate: 6.76e-05
+
+Epoch 213/300
+Train Loss: 1.6765, Val Loss: 1.0206
+Train Metrics: Acc=66.9%, P=74.3%, R=77.1%, F1=75.7%
+Val Metrics: Acc=72.4%, P=72.7%, R=94.1%, F1=82.1%
+Learning rate: 6.67e-05
+
+Epoch 214/300
+Train Loss: 1.1536, Val Loss: 1.4442
+Train Metrics: Acc=69.8%, P=75.3%, R=81.4%, F1=78.2%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 6.58e-05
+
+Epoch 215/300
+Train Loss: 1.4187, Val Loss: 0.9231
+Train Metrics: Acc=70.9%, P=78.5%, R=77.5%, F1=78.0%
+Val Metrics: Acc=69.7%, P=72.6%, R=88.2%, F1=79.6%
+Learning rate: 6.49e-05
+
+Epoch 216/300
+Train Loss: 1.0899, Val Loss: 0.9507
+Train Metrics: Acc=75.1%, P=81.4%, R=81.4%, F1=81.4%
+Val Metrics: Acc=61.8%, P=67.7%, R=82.4%, F1=74.3%
+Learning rate: 6.39e-05
+
+Epoch 217/300
+Train Loss: 1.3740, Val Loss: 0.9590
+Train Metrics: Acc=67.2%, P=75.0%, R=76.3%, F1=75.6%
+Val Metrics: Acc=69.7%, P=70.6%, R=94.1%, F1=80.7%
+Learning rate: 6.30e-05
+
+Epoch 218/300
+Train Loss: 1.2119, Val Loss: 2.2330
+Train Metrics: Acc=64.1%, P=74.9%, R=69.5%, F1=72.1%
+Val Metrics: Acc=63.2%, P=70.9%, R=76.5%, F1=73.6%
+Learning rate: 6.21e-05
+
+Epoch 219/300
+Train Loss: 1.5152, Val Loss: 1.4926
+Train Metrics: Acc=68.1%, P=74.5%, R=79.2%, F1=76.8%
+Val Metrics: Acc=72.4%, P=72.7%, R=94.1%, F1=82.1%
+Learning rate: 6.11e-05
+
+Epoch 220/300
+Train Loss: 1.1604, Val Loss: 0.8026
+Train Metrics: Acc=69.8%, P=75.7%, R=80.5%, F1=78.0%
+Val Metrics: Acc=67.1%, P=71.7%, R=84.3%, F1=77.5%
+Learning rate: 6.02e-05
+
+Epoch 221/300
+Train Loss: 1.2274, Val Loss: 1.3853
+Train Metrics: Acc=72.0%, P=77.5%, R=81.8%, F1=79.6%
+Val Metrics: Acc=68.4%, P=71.4%, R=88.2%, F1=78.9%
+Learning rate: 5.92e-05
+
+Epoch 222/300
+Train Loss: 1.4489, Val Loss: 1.1826
+Train Metrics: Acc=66.7%, P=75.4%, R=74.2%, F1=74.8%
+Val Metrics: Acc=65.8%, P=69.2%, R=88.2%, F1=77.6%
+Learning rate: 5.82e-05
+
+Epoch 223/300
+Train Loss: 1.1805, Val Loss: 1.3299
+Train Metrics: Acc=68.6%, P=75.9%, R=77.5%, F1=76.7%
+Val Metrics: Acc=71.1%, P=71.6%, R=94.1%, F1=81.4%
+Learning rate: 5.73e-05
+
+Epoch 224/300
+Train Loss: 1.3858, Val Loss: 1.6034
+Train Metrics: Acc=69.5%, P=75.8%, R=79.7%, F1=77.7%
+Val Metrics: Acc=71.1%, P=71.6%, R=94.1%, F1=81.4%
+Learning rate: 5.63e-05
+
+Epoch 225/300
+Train Loss: 0.9423, Val Loss: 1.6405
+Train Metrics: Acc=72.0%, P=76.4%, R=83.9%, F1=80.0%
+Val Metrics: Acc=69.7%, P=71.9%, R=90.2%, F1=80.0%
+Learning rate: 5.54e-05
+
+Epoch 226/300
+Train Loss: 1.1716, Val Loss: 0.8289
+Train Metrics: Acc=70.6%, P=76.6%, R=80.5%, F1=78.5%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 5.44e-05
+
+Epoch 227/300
+Train Loss: 1.1447, Val Loss: 1.5330
+Train Metrics: Acc=66.4%, P=73.1%, R=78.4%, F1=75.7%
+Val Metrics: Acc=64.5%, P=69.4%, R=84.3%, F1=76.1%
+Learning rate: 5.34e-05
+
+Epoch 228/300
+Train Loss: 0.8368, Val Loss: 1.2440
+Train Metrics: Acc=70.1%, P=74.8%, R=83.1%, F1=78.7%
+Val Metrics: Acc=69.7%, P=71.9%, R=90.2%, F1=80.0%
+Learning rate: 5.24e-05
+
+Epoch 229/300
+Train Loss: 1.1414, Val Loss: 1.7259
+Train Metrics: Acc=71.2%, P=78.4%, R=78.4%, F1=78.4%
+Val Metrics: Acc=67.1%, P=70.3%, R=88.2%, F1=78.3%
+Learning rate: 5.15e-05
+
+Epoch 230/300
+Train Loss: 1.3812, Val Loss: 2.3102
+Train Metrics: Acc=68.6%, P=75.3%, R=78.8%, F1=77.0%
+Val Metrics: Acc=68.4%, P=70.8%, R=90.2%, F1=79.3%
+Learning rate: 5.05e-05
+
+Epoch 231/300
+Train Loss: 1.1160, Val Loss: 1.4151
+Train Metrics: Acc=71.2%, P=76.4%, R=82.2%, F1=79.2%
+Val Metrics: Acc=69.7%, P=70.6%, R=94.1%, F1=80.7%
+Learning rate: 4.95e-05
+
+Epoch 232/300
+Train Loss: 0.9910, Val Loss: 1.6127
+Train Metrics: Acc=72.6%, P=78.6%, R=80.9%, F1=79.7%
+Val Metrics: Acc=65.8%, P=71.2%, R=82.4%, F1=76.4%
+Learning rate: 4.86e-05
+
+Epoch 233/300
+Train Loss: 1.4255, Val Loss: 1.2921
+Train Metrics: Acc=66.9%, P=75.5%, R=74.6%, F1=75.1%
+Val Metrics: Acc=64.5%, P=68.2%, R=88.2%, F1=76.9%
+Learning rate: 4.76e-05
+
+Epoch 234/300
+Train Loss: 1.2292, Val Loss: 2.3741
+Train Metrics: Acc=68.6%, P=74.7%, R=80.1%, F1=77.3%
+Val Metrics: Acc=68.4%, P=72.1%, R=86.3%, F1=78.6%
+Learning rate: 4.66e-05
+
+Epoch 235/300
+Train Loss: 1.4367, Val Loss: 0.9639
+Train Metrics: Acc=66.4%, P=73.7%, R=77.1%, F1=75.4%
+Val Metrics: Acc=68.4%, P=69.6%, R=94.1%, F1=80.0%
+Learning rate: 4.56e-05
+
+Epoch 236/300
+Train Loss: 1.1440, Val Loss: 1.2208
+Train Metrics: Acc=68.1%, P=74.5%, R=79.2%, F1=76.8%
+Val Metrics: Acc=65.8%, P=69.2%, R=88.2%, F1=77.6%
+Learning rate: 4.47e-05
+
+Epoch 237/300
+Train Loss: 1.0552, Val Loss: 1.4995
+Train Metrics: Acc=66.9%, P=72.8%, R=80.5%, F1=76.5%
+Val Metrics: Acc=68.4%, P=70.8%, R=90.2%, F1=79.3%
+Learning rate: 4.37e-05
+
+Epoch 238/300
+Train Loss: 1.3253, Val Loss: 1.3146
+Train Metrics: Acc=68.4%, P=74.6%, R=79.7%, F1=77.0%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 4.28e-05
+
+Epoch 239/300
+Train Loss: 1.7503, Val Loss: 1.3419
+Train Metrics: Acc=69.8%, P=75.7%, R=80.5%, F1=78.0%
+Val Metrics: Acc=71.1%, P=71.6%, R=94.1%, F1=81.4%
+Learning rate: 4.18e-05
+
+Epoch 240/300
+Train Loss: 1.2728, Val Loss: 1.7875
+Train Metrics: Acc=70.9%, P=77.1%, R=80.1%, F1=78.6%
+Val Metrics: Acc=71.1%, P=73.8%, R=88.2%, F1=80.4%
+Learning rate: 4.08e-05
+
+Epoch 241/300
+Train Loss: 0.8707, Val Loss: 2.0279
+Train Metrics: Acc=71.5%, P=78.5%, R=78.8%, F1=78.6%
+Val Metrics: Acc=71.1%, P=73.8%, R=88.2%, F1=80.4%
+Learning rate: 3.99e-05
+
+Epoch 242/300
+Train Loss: 1.4616, Val Loss: 2.3383
+Train Metrics: Acc=72.3%, P=78.3%, R=80.9%, F1=79.6%
+Val Metrics: Acc=73.7%, P=76.3%, R=88.2%, F1=81.8%
+Learning rate: 3.89e-05
+
+Epoch 243/300
+Train Loss: 1.3028, Val Loss: 1.5420
+Train Metrics: Acc=73.2%, P=79.0%, R=81.4%, F1=80.2%
+Val Metrics: Acc=67.1%, P=68.6%, R=94.1%, F1=79.3%
+Learning rate: 3.80e-05
+
+Epoch 244/300
+Train Loss: 1.0746, Val Loss: 1.9738
+Train Metrics: Acc=73.7%, P=82.1%, R=77.5%, F1=79.7%
+Val Metrics: Acc=71.1%, P=73.0%, R=90.2%, F1=80.7%
+Learning rate: 3.71e-05
+
+Epoch 245/300
+Train Loss: 0.9593, Val Loss: 2.3033
+Train Metrics: Acc=71.8%, P=77.6%, R=80.9%, F1=79.3%
+Val Metrics: Acc=67.1%, P=69.1%, R=92.2%, F1=79.0%
+Learning rate: 3.61e-05
+
+Epoch 246/300
+Train Loss: 1.2395, Val Loss: 2.2781
+Train Metrics: Acc=71.5%, P=77.3%, R=80.9%, F1=79.1%
+Val Metrics: Acc=68.4%, P=70.1%, R=92.2%, F1=79.7%
+Learning rate: 3.52e-05
+
+Epoch 247/300
+Train Loss: 1.0840, Val Loss: 1.2535
+Train Metrics: Acc=72.6%, P=80.1%, R=78.4%, F1=79.2%
+Val Metrics: Acc=68.4%, P=69.6%, R=94.1%, F1=80.0%
+Learning rate: 3.43e-05
+
+Epoch 248/300
+Train Loss: 1.3766, Val Loss: 2.4100
+Train Metrics: Acc=74.0%, P=78.6%, R=83.9%, F1=81.1%
+Val Metrics: Acc=69.7%, P=75.9%, R=80.4%, F1=78.1%
+Learning rate: 3.34e-05
+
+Epoch 249/300
+Train Loss: 1.4566, Val Loss: 2.3105
+Train Metrics: Acc=72.0%, P=78.0%, R=80.9%, F1=79.4%
+Val Metrics: Acc=71.1%, P=73.0%, R=90.2%, F1=80.7%
+Learning rate: 3.25e-05
+
+Epoch 250/300
+Train Loss: 1.0554, Val Loss: 1.5583
+Train Metrics: Acc=66.1%, P=73.8%, R=76.3%, F1=75.0%
+Val Metrics: Acc=67.1%, P=69.1%, R=92.2%, F1=79.0%
+Learning rate: 3.16e-05
+
+Epoch 251/300
+Train Loss: 1.1491, Val Loss: 1.4385
+Train Metrics: Acc=68.6%, P=75.1%, R=79.2%, F1=77.1%
+Val Metrics: Acc=67.1%, P=69.1%, R=92.2%, F1=79.0%
+Learning rate: 3.07e-05
+
+Epoch 252/300
+Train Loss: 1.1877, Val Loss: 1.7806
+Train Metrics: Acc=76.3%, P=79.9%, R=86.0%, F1=82.9%
+Val Metrics: Acc=67.1%, P=69.1%, R=92.2%, F1=79.0%
+Learning rate: 2.98e-05
+
+Epoch 253/300
+Train Loss: 1.0963, Val Loss: 2.8028
+Train Metrics: Acc=70.9%, P=77.8%, R=78.8%, F1=78.3%
+Val Metrics: Acc=71.1%, P=74.6%, R=86.3%, F1=80.0%
+Learning rate: 2.89e-05
+
+Epoch 254/300
+Train Loss: 1.2859, Val Loss: 2.1991
+Train Metrics: Acc=70.1%, P=77.1%, R=78.4%, F1=77.7%
+Val Metrics: Acc=61.8%, P=67.7%, R=82.4%, F1=74.3%
+Learning rate: 2.80e-05
+
+Epoch 255/300
+Train Loss: 0.9933, Val Loss: 2.4656
+Train Metrics: Acc=72.9%, P=76.9%, R=84.7%, F1=80.6%
+Val Metrics: Acc=67.1%, P=70.3%, R=88.2%, F1=78.3%
+Learning rate: 2.72e-05
+
+Epoch 256/300
+Train Loss: 1.0182, Val Loss: 2.2678
+Train Metrics: Acc=73.7%, P=81.2%, R=78.8%, F1=80.0%
+Val Metrics: Acc=69.7%, P=71.9%, R=90.2%, F1=80.0%
+Learning rate: 2.63e-05
+
+Epoch 257/300
+Train Loss: 1.3430, Val Loss: 2.1660
+Train Metrics: Acc=71.2%, P=77.2%, R=80.5%, F1=78.8%
+Val Metrics: Acc=68.4%, P=70.1%, R=92.2%, F1=79.7%
+Learning rate: 2.55e-05
+
+Epoch 258/300
+Train Loss: 0.5552, Val Loss: 1.5586
+Train Metrics: Acc=72.6%, P=79.8%, R=78.8%, F1=79.3%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 2.46e-05
+
+Epoch 259/300
+Train Loss: 0.9476, Val Loss: 1.6503
+Train Metrics: Acc=76.3%, P=81.4%, R=83.5%, F1=82.4%
+Val Metrics: Acc=67.1%, P=69.1%, R=92.2%, F1=79.0%
+Learning rate: 2.38e-05
+
+Epoch 260/300
+Train Loss: 1.0233, Val Loss: 1.8761
+Train Metrics: Acc=71.5%, P=77.1%, R=81.4%, F1=79.2%
+Val Metrics: Acc=71.1%, P=72.3%, R=92.2%, F1=81.0%
+Learning rate: 2.30e-05
+
+Epoch 261/300
+Train Loss: 1.5115, Val Loss: 1.9476
+Train Metrics: Acc=68.1%, P=75.7%, R=76.7%, F1=76.2%
+Val Metrics: Acc=68.4%, P=71.4%, R=88.2%, F1=78.9%
+Learning rate: 2.22e-05
+
+Epoch 262/300
+Train Loss: 1.0090, Val Loss: 2.1037
+Train Metrics: Acc=70.3%, P=75.5%, R=82.2%, F1=78.7%
+Val Metrics: Acc=71.1%, P=72.3%, R=92.2%, F1=81.0%
+Learning rate: 2.14e-05
+
+Epoch 263/300
+Train Loss: 1.0971, Val Loss: 2.0420
+Train Metrics: Acc=72.0%, P=79.4%, R=78.4%, F1=78.9%
+Val Metrics: Acc=71.1%, P=72.3%, R=92.2%, F1=81.0%
+Learning rate: 2.06e-05
+
+Epoch 264/300
+Train Loss: 1.0730, Val Loss: 1.8049
+Train Metrics: Acc=72.6%, P=79.6%, R=79.2%, F1=79.4%
+Val Metrics: Acc=72.4%, P=73.4%, R=92.2%, F1=81.7%
+Learning rate: 1.99e-05
+
+Epoch 265/300
+Train Loss: 1.0745, Val Loss: 1.9863
+Train Metrics: Acc=72.0%, P=78.4%, R=80.1%, F1=79.2%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 1.91e-05
+
+Epoch 266/300
+Train Loss: 1.4162, Val Loss: 2.5808
+Train Metrics: Acc=70.3%, P=76.3%, R=80.5%, F1=78.4%
+Val Metrics: Acc=71.1%, P=73.8%, R=88.2%, F1=80.4%
+Learning rate: 1.84e-05
+
+Epoch 267/300
+Train Loss: 1.5159, Val Loss: 2.0629
+Train Metrics: Acc=73.2%, P=77.4%, R=84.3%, F1=80.7%
+Val Metrics: Acc=71.1%, P=72.3%, R=92.2%, F1=81.0%
+Learning rate: 1.76e-05
+
+Epoch 268/300
+Train Loss: 0.8760, Val Loss: 1.6219
+Train Metrics: Acc=73.7%, P=79.4%, R=81.8%, F1=80.6%
+Val Metrics: Acc=68.4%, P=70.8%, R=90.2%, F1=79.3%
+Learning rate: 1.69e-05
+
+Epoch 269/300
+Train Loss: 0.8940, Val Loss: 1.9278
+Train Metrics: Acc=76.0%, P=80.1%, R=85.2%, F1=82.5%
+Val Metrics: Acc=72.4%, P=72.7%, R=94.1%, F1=82.1%
+Learning rate: 1.62e-05
+
+Epoch 270/300
+Train Loss: 0.9410, Val Loss: 1.4649
+Train Metrics: Acc=75.7%, P=80.5%, R=83.9%, F1=82.2%
+Val Metrics: Acc=71.1%, P=71.6%, R=94.1%, F1=81.4%
+Learning rate: 1.55e-05
+
+Epoch 271/300
+Train Loss: 0.8971, Val Loss: 1.9993
+Train Metrics: Acc=71.8%, P=76.8%, R=82.6%, F1=79.6%
+Val Metrics: Acc=71.1%, P=73.0%, R=90.2%, F1=80.7%
+Learning rate: 1.48e-05
+
+Epoch 272/300
+Train Loss: 1.3642, Val Loss: 1.6333
+Train Metrics: Acc=73.7%, P=78.3%, R=83.9%, F1=81.0%
+Val Metrics: Acc=71.1%, P=72.3%, R=92.2%, F1=81.0%
+Learning rate: 1.42e-05
+
+Epoch 273/300
+Train Loss: 0.8732, Val Loss: 2.7197
+Train Metrics: Acc=73.4%, P=78.9%, R=82.2%, F1=80.5%
+Val Metrics: Acc=68.4%, P=70.8%, R=90.2%, F1=79.3%
+Learning rate: 1.35e-05
+
+Epoch 274/300
+Train Loss: 1.0369, Val Loss: 2.2503
+Train Metrics: Acc=74.3%, P=77.6%, R=86.4%, F1=81.8%
+Val Metrics: Acc=69.7%, P=71.9%, R=90.2%, F1=80.0%
+Learning rate: 1.29e-05
+
+Epoch 275/300
+Train Loss: 0.9453, Val Loss: 2.1958
+Train Metrics: Acc=74.9%, P=81.5%, R=80.5%, F1=81.0%
+Val Metrics: Acc=69.7%, P=72.6%, R=88.2%, F1=79.6%
+Learning rate: 1.22e-05
+
+Epoch 276/300
+Train Loss: 1.0669, Val Loss: 1.5755
+Train Metrics: Acc=73.7%, P=79.2%, R=82.2%, F1=80.7%
+Val Metrics: Acc=71.1%, P=73.8%, R=88.2%, F1=80.4%
+Learning rate: 1.16e-05
+
+Epoch 277/300
+Train Loss: 0.9618, Val Loss: 2.1554
+Train Metrics: Acc=73.4%, P=78.9%, R=82.2%, F1=80.5%
+Val Metrics: Acc=71.1%, P=73.0%, R=90.2%, F1=80.7%
+Learning rate: 1.10e-05
+
+Epoch 278/300
+Train Loss: 1.0930, Val Loss: 1.7714
+Train Metrics: Acc=73.2%, P=78.3%, R=82.6%, F1=80.4%
+Val Metrics: Acc=65.8%, P=69.2%, R=88.2%, F1=77.6%
+Learning rate: 1.05e-05
+
+Epoch 279/300
+Train Loss: 1.3578, Val Loss: 2.0765
+Train Metrics: Acc=75.4%, P=79.7%, R=84.7%, F1=82.1%
+Val Metrics: Acc=67.1%, P=70.3%, R=88.2%, F1=78.3%
+Learning rate: 9.89e-06
+
+Epoch 280/300
+Train Loss: 1.1978, Val Loss: 1.9534
+Train Metrics: Acc=70.3%, P=76.7%, R=79.7%, F1=78.2%
+Val Metrics: Acc=68.4%, P=70.1%, R=92.2%, F1=79.7%
+Learning rate: 9.34e-06
+
+Epoch 281/300
+Train Loss: 0.8187, Val Loss: 2.4231
+Train Metrics: Acc=73.2%, P=78.8%, R=81.8%, F1=80.2%
+Val Metrics: Acc=67.1%, P=70.3%, R=88.2%, F1=78.3%
+Learning rate: 8.81e-06
+
+Epoch 282/300
+Train Loss: 0.6272, Val Loss: 1.6398
+Train Metrics: Acc=76.8%, P=79.2%, R=88.6%, F1=83.6%
+Val Metrics: Acc=68.4%, P=70.1%, R=92.2%, F1=79.7%
+Learning rate: 8.29e-06
+
+Epoch 283/300
+Train Loss: 1.1996, Val Loss: 1.9865
+Train Metrics: Acc=73.2%, P=80.0%, R=79.7%, F1=79.8%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 7.79e-06
+
+Epoch 284/300
+Train Loss: 1.5307, Val Loss: 2.0807
+Train Metrics: Acc=71.5%, P=77.8%, R=80.1%, F1=78.9%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 7.31e-06
+
+Epoch 285/300
+Train Loss: 1.0175, Val Loss: 2.1699
+Train Metrics: Acc=73.4%, P=78.4%, R=83.1%, F1=80.7%
+Val Metrics: Acc=69.7%, P=71.9%, R=90.2%, F1=80.0%
+Learning rate: 6.84e-06
+
+Epoch 286/300
+Train Loss: 0.9057, Val Loss: 2.1738
+Train Metrics: Acc=75.4%, P=79.7%, R=84.7%, F1=82.1%
+Val Metrics: Acc=68.4%, P=70.8%, R=90.2%, F1=79.3%
+Learning rate: 6.40e-06
+
+Epoch 287/300
+Train Loss: 1.1644, Val Loss: 2.2544
+Train Metrics: Acc=74.3%, P=78.9%, R=83.9%, F1=81.3%
+Val Metrics: Acc=71.1%, P=72.3%, R=92.2%, F1=81.0%
+Learning rate: 5.96e-06
+
+Epoch 288/300
+Train Loss: 0.6952, Val Loss: 1.8555
+Train Metrics: Acc=77.7%, P=83.4%, R=83.1%, F1=83.2%
+Val Metrics: Acc=71.1%, P=72.3%, R=92.2%, F1=81.0%
+Learning rate: 5.55e-06
+
+Epoch 289/300
+Train Loss: 0.7540, Val Loss: 2.1314
+Train Metrics: Acc=76.8%, P=80.6%, R=86.0%, F1=83.2%
+Val Metrics: Acc=71.1%, P=72.3%, R=92.2%, F1=81.0%
+Learning rate: 5.15e-06
+
+Epoch 290/300
+Train Loss: 0.8712, Val Loss: 2.0681
+Train Metrics: Acc=76.3%, P=81.4%, R=83.5%, F1=82.4%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 4.77e-06
+
+Epoch 291/300
+Train Loss: 1.1727, Val Loss: 2.2908
+Train Metrics: Acc=74.6%, P=80.4%, R=81.8%, F1=81.1%
+Val Metrics: Acc=69.7%, P=71.9%, R=90.2%, F1=80.0%
+Learning rate: 4.40e-06
+
+Epoch 292/300
+Train Loss: 0.5762, Val Loss: 2.5343
+Train Metrics: Acc=76.6%, P=81.2%, R=84.3%, F1=82.7%
+Val Metrics: Acc=71.1%, P=73.8%, R=88.2%, F1=80.4%
+Learning rate: 4.06e-06
+
+Epoch 293/300
+Train Loss: 0.6714, Val Loss: 2.2886
+Train Metrics: Acc=76.3%, P=81.4%, R=83.5%, F1=82.4%
+Val Metrics: Acc=69.7%, P=71.2%, R=92.2%, F1=80.3%
+Learning rate: 3.73e-06
+
+Epoch 294/300
+Train Loss: 0.7246, Val Loss: 2.3679
+Train Metrics: Acc=74.3%, P=81.7%, R=79.2%, F1=80.4%
+Val Metrics: Acc=65.8%, P=70.5%, R=84.3%, F1=76.8%
+Learning rate: 3.42e-06
+
+Epoch 295/300
+Train Loss: 0.9122, Val Loss: 2.4679
+Train Metrics: Acc=76.3%, P=81.9%, R=82.6%, F1=82.3%
+Val Metrics: Acc=71.1%, P=73.0%, R=90.2%, F1=80.7%
+Learning rate: 3.13e-06
+
+Epoch 296/300
+Train Loss: 0.7213, Val Loss: 2.2395
+Train Metrics: Acc=75.7%, P=80.0%, R=84.7%, F1=82.3%
+Val Metrics: Acc=71.1%, P=73.8%, R=88.2%, F1=80.4%
+Learning rate: 2.86e-06
+
+Epoch 297/300
+Train Loss: 1.2774, Val Loss: 2.2747
+Train Metrics: Acc=73.7%, P=78.9%, R=82.6%, F1=80.7%
+Val Metrics: Acc=71.1%, P=73.0%, R=90.2%, F1=80.7%
+Learning rate: 2.60e-06
+
+Epoch 298/300
+Train Loss: 1.3848, Val Loss: 1.9652
+Train Metrics: Acc=77.1%, P=80.2%, R=87.3%, F1=83.6%
+Val Metrics: Acc=68.4%, P=70.1%, R=92.2%, F1=79.7%
+Learning rate: 2.37e-06
+
+Epoch 299/300
+Train Loss: 1.3896, Val Loss: 2.1472
+Train Metrics: Acc=74.6%, P=78.7%, R=84.7%, F1=81.6%
+Val Metrics: Acc=67.1%, P=71.0%, R=86.3%, F1=77.9%
+Learning rate: 2.15e-06
+
+Epoch 300/300
+Train Loss: 1.1442, Val Loss: 2.1951
+Train Metrics: Acc=72.6%, P=79.3%, R=79.7%, F1=79.5%
+Val Metrics: Acc=67.1%, P=71.0%, R=86.3%, F1=77.9%
+Learning rate: 1.95e-06
+
+Best Validation Results:
+==================================================
+Loss: 0.1902
+Accuracy: 72.37%
+Precision: 71.43%
+Recall: 98.04%
+F1 Score: 82.64%
+==================================================
+
+Best model saved to: best_model.pth
+
+Evaluating model on test set...
+
+Final Test Results:
+==================================================
+Loss: 1.4550
+Accuracy: 68.83%
+Precision: 72.88%
+Recall: 84.31%
+F1 Score: 78.18%
+
+Detailed Metrics:
+True Positives: 43
+False Positives: 16
+True Negatives: 10
+False Negatives: 8
+==================================================
+
+Test results saved to: test_results.json

@@ -11,7 +11,23 @@ from torch.utils.data import Dataset, DataLoader
 import datetime
 import json
 import matplotlib.pyplot as plt  # Add this for plotting
-
+import argparse  # Add this to your imports
+def parse_args():
+    parser = argparse.ArgumentParser(description='ECG Classification Training')
+    parser.add_argument('--epoch', type=int, default=30,
+                      help='number of epochs to train (default: 30)')
+    parser.add_argument('--lr', type=float, default=1e-4,
+                      help='learning rate (default: 1e-4)')
+    parser.add_argument('--batch_size', type=int, default=16,
+                      help='input batch size (default: 16)')
+    # Add dropout arguments
+    parser.add_argument('--dropout1', type=float, default=0.5,
+                      help='dropout rate after first linear layer (default: 0.5)')
+    parser.add_argument('--dropout2', type=float, default=0.3,
+                      help='dropout rate after second linear layer (default: 0.3)')
+    parser.add_argument('--dropout3', type=float, default=0.2,
+                      help='dropout rate after third linear layer (default: 0.2)')
+    return parser.parse_args()
 class FocalLoss(nn.Module):
     def __init__(self, alpha=0.75, gamma=2.0):
         super().__init__()
@@ -53,8 +69,13 @@ class StatisticalFeatures(nn.Module):
         return stats
 
 class ConvNetQuake(nn.Module):
-    def __init__(self, input_length=None):
+    def __init__(self, input_length=None, dropout1=0.5, dropout2=0.3, dropout3=0.2):
         super(ConvNetQuake, self).__init__()
+
+        # Store dropout rates
+        self.dropout1 = dropout1
+        self.dropout2 = dropout2
+        self.dropout3 = dropout3
 
         # Initial feature extraction with larger kernels to capture ECG patterns
         self.feature_extractor = nn.Sequential(
@@ -82,22 +103,22 @@ class ConvNetQuake(nn.Module):
             nn.LeakyReLU(0.2)
         )
 
-        # Classifier combining both feature types
+        # Classifier with parameterized dropout
         self.classifier = nn.Sequential(
-            nn.Linear(512 + 16, 256),  # 512 from conv features + 16 from auxiliary
+            nn.Linear(512 + 16, 256),
             nn.BatchNorm1d(256),
             nn.LeakyReLU(0.2),
-            nn.Dropout(0.5),
+            nn.Dropout(self.dropout1),  # First dropout layer
 
             nn.Linear(256, 128),
             nn.BatchNorm1d(128),
             nn.LeakyReLU(0.2),
-            nn.Dropout(0.3),
+            nn.Dropout(self.dropout2),  # Second dropout layer
 
             nn.Linear(128, 64),
             nn.BatchNorm1d(64),
             nn.LeakyReLU(0.2),
-            nn.Dropout(0.2),
+            nn.Dropout(self.dropout3),  # Third dropout layer
 
             nn.Linear(64, 1),
             nn.Sigmoid()
@@ -145,7 +166,6 @@ class ConvNetQuake(nn.Module):
         # Classification
         output = self.classifier(combined)
         return output
-
 class ECGDataManager:
     def __init__(self, data_dir, train_split=0.7, val_split=0.15, test_split=0.15, random_seed=42):
         if not np.isclose(train_split + val_split + test_split, 1.0):
@@ -355,7 +375,7 @@ def calculate_metrics(y_true, y_pred):
         'false_negatives': false_negatives
     }
 
-def train_model(model, train_data, val_data, epochs=20, batch_size=16, lr=3e-4):
+def train_model(model, train_data, val_data, epochs, batch_size, lr):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = model.to(device)
 
@@ -543,6 +563,7 @@ def evaluate_model(model, test_data, batch_size=16):
 
 def main():
     try:
+        args = parse_args()
         # Initialize data manager
         print("Initializing ECG Data Manager...")
         data_manager = ECGDataManager(data_dir="./output_files")
@@ -573,7 +594,13 @@ def main():
         # Initialize model
         print("\nInitializing model...")
         input_length = X_train.shape[2]
-        model = ConvNetQuake(input_length=input_length)
+        model = ConvNetQuake(
+            input_length=input_length,
+            dropout1=args.dropout1,
+            dropout2=args.dropout2,
+            dropout3=args.dropout3
+        )
+
 
         # Print model summary
         print("\nModel Architecture:")
@@ -586,15 +613,21 @@ def main():
         print(f"Trainable parameters: {trainable_params:,}")
 
         # Train model
+
         print("\nStarting model training...")
+        print(f"Training Parameters:")
+        print(f"Epochs: {args.epoch}")
+        print(f"Learning Rate: {args.lr}")
+        print(f"Batch Size: {args.batch_size}")
+        
         model, best_val_loss, best_val_metrics, history = train_model(
-                  model,
-                  train_data,
-                  val_data,
-                  epochs=20,
-                  batch_size=16,
-                  lr=3e-4
-              )
+            model,
+            train_data,
+            val_data,
+            epochs=args.epoch,
+            batch_size=args.batch_size,
+            lr=args.lr
+        )
 
               # Save training history
         history_data = {

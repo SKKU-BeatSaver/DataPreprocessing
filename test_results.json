@@ -1,16 +1,16 @@
 {
     "test_metrics": {
-        "accuracy": 66.23376623376623,
-        "precision": 69.23076912426036,
-        "recall": 88.23529394463667,
-        "f1": 77.58620183561268,
-        "true_positives": 45,
-        "false_positives": 20,
-        "true_negatives": 6,
-        "false_negatives": 6,
-        "test_loss": 0.18530671074986457
+        "accuracy": 68.83116883116884,
+        "precision": 72.88135580867566,
+        "recall": 84.31372532487504,
+        "f1": 78.181813066116,
+        "true_positives": 43,
+        "false_positives": 16,
+        "true_negatives": 10,
+        "false_negatives": 8,
+        "test_loss": 1.4549615912139415
     },
-    "timestamp": "2024-11-05 09:31:30.770527",
+    "timestamp": "2024-11-05 18:32:58.643806",
     "data_distribution": {
         "train": {
             "normal": 236,
