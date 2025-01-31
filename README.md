@@ -1,93 +1,61 @@
-> This repository is archived. The BioSPPy toolbox is now maintained at [scientisst/BioSPPy](https://github.com/scientisst/BioSPPy).
+# BeatSaver - Panic Disorder Risk Assessment System
 
-# BioSPPy - Biosignal Processing in Python
+A Flask-based web application that analyzes ECG data and psychological assessments to predict panic disorder risk.
 
-*A toolbox for biosignal processing written in Python.*
+## Key Features
 
-[![Image](https://github.com/PIA-Group/BioSPPy/raw/master/docs/logo/logo_400.png "I know you're listening! - xkcd.com/525")](http://biosppy.readthedocs.org/)
+- ECG data processing and HRV (Heart Rate Variability) analysis
+- Integration of psychological assessments (PDSS and APPQ)
+- Machine learning model for risk prediction (Random Forest)
+- Age-specific RMSSD range analysis
 
-The toolbox bundles together various signal processing and pattern recognition
-methods geared towards the analysis of biosignals.
+## Components
 
-Highlights:
+- ECG data processing using BioSPPy
+- PDSS (Panic Disorder Severity Scale) evaluation
+- APPQ (Anxiety Sensitivity Profile Questionnaire) assessment
+- Combined risk calculation with weighted probabilities:
+  - ECG/HRV: 40%
+  - PDSS: 30%
+  - APPQ: 30%
 
-- Support for various biosignals: BVP, ECG, EDA, EEG, EMG, PCG, PPG, Respiration
-- Signal analysis primitives: filtering, frequency analysis
-- Clustering
-- Biometrics
+## API Endpoints
 
-Documentation can be found at: <http://biosppy.readthedocs.org/>
+```
+POST /upload - Upload and process ECG data
+POST /dsm - Submit PDSS assessment
+POST /appq - Submit APPQ assessment
+GET /get_final_probability - Get combined risk assessment
+POST /reset_scores - Reset all assessment scores
+```
 
-## Installation
+## Model Performance
 
-Installation can be easily done with `pip`:
+The Random Forest model achieved:
+- Accuracy: 99.27%
+- Precision: 99.69%
+- Recall: 98.49%
+- F1 Score: 99.09%
 
+## Setup
+
+1. Install required Python packages:
 ```bash
-$ pip install biosppy
+pip install flask pandas numpy scipy biosppy scikit-learn
 ```
 
-## Simple Example
-
-The code below loads an ECG signal from the `examples` folder, filters it,
-performs R-peak detection, and computes the instantaneous heart rate.
-
-```python
-from biosppy import storage
-from biosppy.signals import ecg
-
-# load raw ECG signal
-signal, mdata = storage.load_txt('./examples/ecg.txt')
-
-# process it and plot
-out = ecg.ecg(signal=signal, sampling_rate=1000., show=True)
+2. Start the Flask server:
+```bash
+python main.py
 ```
 
-This should produce a plot similar to the one below.
+## Data Processing
 
-[![Image](https://github.com/PIA-Group/BioSPPy/raw/master/docs/images/ECG_summary.png "ECG Summary Plot")]()
+- Supports CSV ECG data with 500Hz sampling rate
+- Processes metadata and voltage data separately
+- Calculates RMSSD and HRV metrics
+- Age-specific risk normalization
 
-## Dependencies
+## Note
 
-- bidict
-- h5py
-- matplotlib
-- numpy
-- scikit-learn
-- scipy
-- shortuuid
-- six
-- joblib
-
-## Citing
-Please use the following if you need to cite BioSPPy:
-
-- Carreiras C, Alves AP, Lourenço A, Canento F, Silva H, Fred A, *et al.*
-  **BioSPPy - Biosignal Processing in Python**, 2015-,
-  https://github.com/PIA-Group/BioSPPy/ [Online; accessed ```<year>-<month>-<day>```].
-
-```latex
-@Misc{,
-  author = {Carlos Carreiras and Ana Priscila Alves and Andr\'{e} Louren\c{c}o and Filipe Canento and Hugo Silva and Ana Fred and others},
-  title = {{BioSPPy}: Biosignal Processing in {Python}},
-  year = {2015--},
-  url = "https://github.com/PIA-Group/BioSPPy/",
-  note = {[Online; accessed <today>]}
-}
-```
-
-## License
-
-BioSPPy is released under the BSD 3-clause license. See LICENSE for more details.
-
-## Disclaimer
-
-This program is distributed in the hope it will be useful and provided
-to you "as is", but WITHOUT ANY WARRANTY, without even the implied
-warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. This
-program is NOT intended for medical diagnosis. We expressly disclaim any
-liability whatsoever for any direct, indirect, consequential, incidental
-or special damages, including, without limitation, lost revenues, lost
-profits, losses resulting from business interruption or loss of data,
-regardless of the form of action or legal theory under which the
-liability may be asserted, even if advised of the possibility of such
-damages.
+This system is part of a larger panic disorder prediction platform integrating wearable ECG monitoring with standardized psychological assessments.
